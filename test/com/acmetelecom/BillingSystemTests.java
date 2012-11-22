@@ -1,6 +1,5 @@
 package com.acmetelecom;
 
-import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 

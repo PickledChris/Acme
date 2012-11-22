@@ -1,6 +1,7 @@
 package com.acmetelecom;
 
 import junit.framework.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -19,9 +20,12 @@ public class DaytimePeakPeriodTests {
     public static final int startOfPeak = 7;
 
 
-    @BeforeTest
+    @BeforeClass
     public void setupCalendar() {
         startOfADay.set(2005, Calendar.JANUARY, 1);
+        startOfADay.set(Calendar.HOUR, -12);
+        startOfADay.set(Calendar.MINUTE, 0);
+        startOfADay.set(Calendar.SECOND, 0);
     }
 
 
@@ -70,10 +74,8 @@ public class DaytimePeakPeriodTests {
 
     private Calendar adjustDayCalendar(int hour, int second) {
         Calendar cal = (Calendar) startOfADay.clone();
-
         cal.add(Calendar.HOUR, hour);
         cal.add(Calendar.SECOND, second);
-
         return cal;
     }
 
