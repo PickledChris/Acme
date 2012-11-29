@@ -1,9 +1,6 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.CentralCustomerDatabase;
-import com.acmetelecom.customer.CentralTariffDatabase;
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.customer.Tariff;
+import com.acmetelecom.customer.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -12,6 +9,15 @@ import java.util.*;
 public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
+    private CustomerDatabase database;
+    private TariffLibrary tariffLibrary;
+    private Printer printer;
+
+    public BillingSystem(CustomerDatabase database, TariffLibrary tariffLibrary, Printer printer) {
+        this.database = database;
+        this.tariffLibrary = tariffLibrary;
+        this.printer = printer;
+    }
 
     public void callInitiated(String caller, String callee) {
         callLog.add(new CallStart(caller, callee));
@@ -22,7 +28,7 @@ public class BillingSystem {
     }
 
     public void createCustomerBills() {
-        List<Customer> customers = CentralCustomerDatabase.getInstance().getCustomers();
+        List<Customer> customers = this.database.getCustomers();
         for (Customer customer : customers) {
             createBillFor(customer);
         }
@@ -50,12 +56,22 @@ public class BillingSystem {
             }
         }
 
+
+        List<LineItem> items = calculateCallCosts(customer, calls);
         BigDecimal totalBill = new BigDecimal(0);
+        for (LineItem item : items) {
+             totalBill = totalBill.add(item.callCost);
+        }
+
+        new BillGenerator(this.printer).send(customer, items, MoneyFormatter.penceToPounds(totalBill));
+    }
+
+    private List<LineItem> calculateCallCosts(Customer customer, List<Call> calls) {
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {
 
-            Tariff tariff = CentralTariffDatabase.getInstance().tarriffFor(customer);
+            Tariff tariff = this.tariffLibrary.tarriffFor(customer);
 
             BigDecimal cost;
 
@@ -68,11 +84,9 @@ public class BillingSystem {
 
             cost = cost.setScale(0, RoundingMode.HALF_UP);
             BigDecimal callCost = cost;
-            totalBill = totalBill.add(callCost);
             items.add(new LineItem(call, callCost));
         }
-
-        new BillGenerator().send(customer, items, MoneyFormatter.penceToPounds(totalBill));
+        return items;
     }
 
     static class LineItem {

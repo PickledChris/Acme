@@ -1,12 +1,16 @@
 package com.acmetelecom;
 
+import com.acmetelecom.customer.CentralCustomerDatabase;
+import com.acmetelecom.customer.CentralTariffDatabase;
+
 /**
  * Test code from the specification using database values
  */
 public class Runner {
     public static void main(String[] args) throws Exception {
         System.out.println("Running...");
-        BillingSystem billingSystem = new BillingSystem();
+        BillingSystem billingSystem = new BillingSystem(CentralCustomerDatabase.getInstance(),
+                CentralTariffDatabase.getInstance(), HtmlPrinter.getInstance());
         billingSystem.callInitiated("447722113434", "447766511332");
         sleepSeconds(20);
         billingSystem.callCompleted("447722113434", "447766511332");

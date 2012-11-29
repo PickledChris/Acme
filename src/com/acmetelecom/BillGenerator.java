@@ -6,14 +6,19 @@ import java.util.List;
 
 public class BillGenerator {
 
+    private Printer printer;
+
+    public BillGenerator(Printer printer) {
+        this.printer = printer;
+    }
+
     public void send(Customer customer, List<BillingSystem.LineItem> calls, String totalBill) {
 
-        Printer printer = HtmlPrinter.getInstance();
-        printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
+        this.printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
         for (BillingSystem.LineItem call : calls) {
-            printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
+            this.printer.printItem(call.date(), call.callee(), call.durationMinutes(), MoneyFormatter.penceToPounds(call.cost()));
         }
-        printer.printTotal(totalBill);
+        this.printer.printTotal(totalBill);
     }
 
 }
