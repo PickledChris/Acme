@@ -3,20 +3,19 @@ package com.acmetelecom;
 import com.acmetelecom.customer.*;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.*;
 
 public class BillingSystem {
 
     private List<CallEvent> callLog = new ArrayList<CallEvent>();
     private CustomerDatabase database;
-    private TariffLibrary tariffLibrary;
     private Printer printer;
+    private final CallCostCalculator callCostCalculator;
 
     public BillingSystem(CustomerDatabase database, TariffLibrary tariffLibrary, Printer printer) {
         this.database = database;
-        this.tariffLibrary = tariffLibrary;
         this.printer = printer;
+        this.callCostCalculator = new CallCostCalculator(tariffLibrary);
     }
 
     public void callInitiated(String caller, String callee) {
@@ -57,61 +56,13 @@ public class BillingSystem {
         }
 
 
-        List<LineItem> items = calculateCallCosts(customer, calls);
+        List<LineItem> items = callCostCalculator.calculateCallCosts(customer, calls);
         BigDecimal totalBill = new BigDecimal(0);
         for (LineItem item : items) {
-             totalBill = totalBill.add(item.callCost);
+             totalBill = totalBill.add(item.cost());
         }
 
         new BillGenerator(this.printer).send(customer, items, MoneyFormatter.penceToPounds(totalBill));
     }
 
-    private List<LineItem> calculateCallCosts(Customer customer, List<Call> calls) {
-        List<LineItem> items = new ArrayList<LineItem>();
-
-        for (Call call : calls) {
-
-            Tariff tariff = this.tariffLibrary.tarriffFor(customer);
-
-            BigDecimal cost;
-
-            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime()) && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-            } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
-            }
-
-            cost = cost.setScale(0, RoundingMode.HALF_UP);
-            BigDecimal callCost = cost;
-            items.add(new LineItem(call, callCost));
-        }
-        return items;
-    }
-
-    static class LineItem {
-        private Call call;
-        private BigDecimal callCost;
-
-        public LineItem(Call call, BigDecimal callCost) {
-            this.call = call;
-            this.callCost = callCost;
-        }
-
-        public String date() {
-            return call.date();
-        }
-
-        public String callee() {
-            return call.callee();
-        }
-
-        public String durationMinutes() {
-            return "" + call.durationSeconds() / 60 + ":" + String.format("%02d", call.durationSeconds() % 60);
-        }
-
-        public BigDecimal cost() {
-            return callCost;
-        }
-    }
 }
