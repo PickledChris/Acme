@@ -4,6 +4,7 @@ import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
 import com.acmetelecom.customer.Tariff;
 import com.acmetelecom.customer.TariffLibrary;
+import com.acmetelecom.externaladaptors.TariffLibraryManager;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -43,7 +44,8 @@ public class BillingSystemTests {
         CustomerDatabase mockDatabase = mock(CustomerDatabase.class);
         when(mockDatabase.getCustomers()).thenReturn(customers);
 
-        BillingSystem billingSystem = new BillingSystem(mockDatabase, this.mockTariffLibrary, mockPrinter);
+        BillingSystem billingSystem = new BillingSystem(mockDatabase, new TariffLibraryManager(this.mockTariffLibrary),
+                mockPrinter);
 
         billingSystem.callInitiated(caller, callee);
         Thread.sleep(5000);

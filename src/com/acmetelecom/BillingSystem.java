@@ -1,6 +1,7 @@
 package com.acmetelecom;
 
 import com.acmetelecom.customer.*;
+import com.acmetelecom.externaladaptors.TariffLibraryManager;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -12,7 +13,7 @@ public class BillingSystem {
     private Printer printer;
     private final CallCostCalculator callCostCalculator;
 
-    public BillingSystem(CustomerDatabase database, TariffLibrary tariffLibrary, Printer printer) {
+    public BillingSystem(CustomerDatabase database, TariffLibraryManager tariffLibrary, Printer printer) {
         this.database = database;
         this.printer = printer;
         this.callCostCalculator = new CallCostCalculator(tariffLibrary);
