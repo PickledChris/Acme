@@ -1,14 +1,18 @@
 package com.acmetelecom;
 
-import java.util.Calendar;
-import java.util.Date;
+import org.joda.time.LocalTime;
 
 class DaytimePeakPeriod {
 
-    public boolean offPeak(Date time) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(time);
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        return hour < 7 || hour >= 19;
+    private LocalTime beginTime;
+    private LocalTime endTime;
+
+    public DaytimePeakPeriod(LocalTime beginTime, LocalTime endTime) {
+        this.beginTime = beginTime;
+        this.endTime = endTime;
+    }
+
+    public boolean offPeak(LocalTime time) {
+        return !(time.isAfter(beginTime) && time.isBefore(endTime));
     }
 }

@@ -1,80 +1,70 @@
 package com.acmetelecom;
 
-import junit.framework.Assert;
-import org.testng.annotations.BeforeClass;
+import org.joda.time.LocalTime;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.util.Calendar;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Tests for the DaytimePeakPeriod class
  */
 public class DaytimePeakPeriodTests {
 
-    public static Calendar startOfADay = Calendar.getInstance();
+    // 7:00
+    private LocalTime peakPeriodStart = new LocalTime(7,0);
+    // 19:00
+    private LocalTime peakPeriodEnd = new LocalTime(19,0);
+    private PeakPeriodManager peakPeriodManager;
 
-    //TODO: these constants need to be gathered from the DaytimePeakPeriod class in constants rather than here.
-    public static final int endOfPeak = 19;
-    public static final int startOfPeak = 7;
-
-
-    @BeforeClass
-    public void setupCalendar() {
-        startOfADay.set(2005, Calendar.JANUARY, 1);
-        startOfADay.set(Calendar.HOUR, -12);
-        startOfADay.set(Calendar.MINUTE, 0);
-        startOfADay.set(Calendar.SECOND, 0);
+    @BeforeTest
+    public void setupPeakPeriod() {
+        this.peakPeriodManager = new PeakPeriodManager();
+        this.peakPeriodManager.addPeakPeriod(peakPeriodStart, peakPeriodEnd);
     }
 
 
     @Test
     public void offPeakEveningTest() {
 
-        Calendar afterPeak = adjustDayCalendar(endOfPeak, 1);
-
-        boolean result = new DaytimePeakPeriod().offPeak(afterPeak.getTime());
-
-        Assert.assertTrue("The time " +  endOfPeak + ":00:01 " +
-                "was not declared off peak when it should have", result);
+        // 19:00:01
+        LocalTime offPeakEvening = new LocalTime(19,0,1);
+        boolean result = this.peakPeriodManager.offPeak(offPeakEvening);
+        assertTrue("The time " + offPeakEvening +
+                " was not declared off peak when it should have", result);
     }
+
 
     @Test
     public void onPeakEveningTest() {
 
-        Calendar inPeak = adjustDayCalendar(endOfPeak, -1);
-        boolean result = new DaytimePeakPeriod().offPeak(inPeak.getTime());
-
-        Assert.assertFalse("The time " + (endOfPeak - 1) + ":59:59 " +
-                "was declared off peak when it should have been on peak.", result);
+        // 18:59:59
+        LocalTime peakEvening = new LocalTime(18,59,59);
+        boolean result = this.peakPeriodManager.offPeak(peakEvening);
+        assertFalse("The time " + peakEvening +
+                " was declared off peak when it should have been on peak.", result);
 
     }
 
     @Test
     public void onPeakMorningTest() {
-        Calendar inPeak = adjustDayCalendar(startOfPeak, 1);
 
-        boolean result = new DaytimePeakPeriod().offPeak(inPeak.getTime());
-
-        Assert.assertFalse("The time " + startOfPeak + ":00:01 " +
-                "was declared off peak when it should have been on peak.", result);
+        // 07:00:01
+        LocalTime peakMorning = new LocalTime(7,0,1);
+        boolean result = this.peakPeriodManager.offPeak(peakMorning);
+        assertFalse("The time " + peakMorning +
+                " was declared off peak when it should have been on peak.", result);
     }
 
     @Test
     public void offPeakMorningTest() {
 
-        Calendar beforePeak = adjustDayCalendar(startOfPeak, -1);
-
-        boolean result = new DaytimePeakPeriod().offPeak(beforePeak.getTime());
-
-        Assert.assertTrue("The time " +  (startOfPeak - 1) + ":59:59 " +
+        // 06:59:59
+        LocalTime offPeakMorning = new LocalTime(6,59,59);
+        boolean result = this.peakPeriodManager.offPeak(offPeakMorning);
+        assertTrue("The time " + offPeakMorning +
                 "was not declared off peak when it should have", result);
-    }
-
-    private Calendar adjustDayCalendar(int hour, int second) {
-        Calendar cal = (Calendar) startOfADay.clone();
-        cal.add(Calendar.HOUR, hour);
-        cal.add(Calendar.SECOND, second);
-        return cal;
     }
 
 }

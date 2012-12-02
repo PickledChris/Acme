@@ -10,10 +10,11 @@ public class BillingSystem {
     private Printer printer;
     private final CallCostCalculator callCostCalculator;
 
-    public BillingSystem(CustomerDatasource customerSource, TelecomTariffLibrary tariffLibrary, Printer printer) {
+    public BillingSystem(CustomerDatasource customerSource, TelecomTariffLibrary tariffLibrary,
+                         PeakPeriodManager peakManager, Printer printer) {
         this.customerSource = customerSource;
         this.printer = printer;
-        this.callCostCalculator = new CallCostCalculator(tariffLibrary);
+        this.callCostCalculator = new CallCostCalculator(tariffLibrary, peakManager);
     }
 
     public void callInitiated(String caller, String callee) {

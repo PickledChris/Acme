@@ -1,5 +1,7 @@
 package com.acmetelecom;
 
+import org.joda.time.LocalTime;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -8,9 +10,11 @@ import java.util.List;
 public class CallCostCalculator {
 
     private final TelecomTariffLibrary tariffLibrary;
+    private PeakPeriodManager peakManager;
 
-    public CallCostCalculator(TelecomTariffLibrary tariffLibrary) {
+    public CallCostCalculator(TelecomTariffLibrary tariffLibrary, PeakPeriodManager peakManager) {
         this.tariffLibrary = tariffLibrary;
+        this.peakManager = peakManager;
     }
 
     public List<LineItem> calculateCallCosts(TelecomCustomer customer, List<Call> calls) {
@@ -22,8 +26,9 @@ public class CallCostCalculator {
 
             BigDecimal cost;
 
-            DaytimePeakPeriod peakPeriod = new DaytimePeakPeriod();
-            if (peakPeriod.offPeak(call.startTime()) && peakPeriod.offPeak(call.endTime())
+            LocalTime callStartTime = new LocalTime(call.startTime());
+            LocalTime callEndTime = new LocalTime(call.endTime());
+            if (peakManager.offPeak(callStartTime) && peakManager.offPeak(callEndTime)
                     && call.durationSeconds() < 12 * 60 * 60) {
                 cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
             } else {

@@ -1,7 +1,6 @@
 package com.acmetelecom;
 
 import static org.testng.AssertJUnit.assertEquals;
-import static org.testng.AssertJUnit.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
@@ -40,7 +40,13 @@ public class CallCostTests {
         this.mockTariffLibrary = mock(TariffLibraryManager.class);
         when(mockTariffLibrary.getTariffForCustomer(Mockito.any(TelecomCustomer.class))).thenReturn(mockTariff);
 
-        this.callCostCalculator = new CallCostCalculator(this.mockTariffLibrary);
+        PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
+        // Peak period is 7:00 - 19:00
+        LocalTime beginPeak = new LocalTime(7,0);
+        LocalTime endPeak = new LocalTime(19,0);
+        peakPeriodManager.addPeakPeriod(beginPeak, endPeak);
+
+        this.callCostCalculator = new CallCostCalculator(this.mockTariffLibrary, peakPeriodManager);
     }
 
     @Test
@@ -57,7 +63,7 @@ public class CallCostTests {
 
         assertEquals(items.size(), 1);
         LineItem item = items.get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(6 * 2));
+        assertEquals(BigDecimal.valueOf(6 * 2), item.cost());
     }
 
     @Test
@@ -73,7 +79,7 @@ public class CallCostTests {
 
         assertEquals(items.size(), 1);
         LineItem item = items.get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(12 * 2));
+        assertEquals(BigDecimal.valueOf(12 * 2), item.cost());
     }
 
     @Test
@@ -107,7 +113,7 @@ public class CallCostTests {
     	DateTime callStart1 = new DateTime(2012,11,30,9,30,0);
         DateTime callEnd1 = callStart1.plusMinutes(10);
 
-    	DateTime callStart2 = new DateTime(2012,11,30,11,00,0);
+    	DateTime callStart2 = new DateTime(2012,11,30,11,0,0);
         DateTime callEnd2 = callStart2.plusMinutes(5);
         
         List<Call> callList = new ArrayList<Call>();
@@ -127,7 +133,7 @@ public class CallCostTests {
     	DateTime callStart1 = new DateTime(2012,11,30,6,30,0);
         DateTime callEnd1 = callStart1.plusMinutes(10);
 
-    	DateTime callStart2 = new DateTime(2012,11,30,11,00,0);
+    	DateTime callStart2 = new DateTime(2012,11,30,11,0,0);
         DateTime callEnd2 = callStart2.plusMinutes(5);
         
         List<Call> callList = new ArrayList<Call>();

@@ -45,7 +45,9 @@ public class BillingSystemTests {
         CustomerDatabase mockDatabase = mock(CustomerDatabase.class);
         when(mockDatabase.getCustomers()).thenReturn(customers);
 
-        BillingSystem billingSystem = new BillingSystem(new CustomerDatabaseAdaptor(mockDatabase), new TariffLibraryManager(this.mockTariffLibrary),
+        BillingSystem billingSystem = new BillingSystem(new CustomerDatabaseAdaptor(mockDatabase),
+                new TariffLibraryManager(this.mockTariffLibrary),
+                new PeakPeriodManager(),
                 mockPrinter);
 
         billingSystem.callInitiated(caller, callee);
