@@ -1,7 +1,5 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.*;
-
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -27,14 +25,14 @@ public class BillingSystem {
     }
 
     public void createCustomerBills() {
-        List<Customer> customers = this.customerSource.getCustomers();
-        for (Customer customer : customers) {
+        List<TelecomCustomer> customers = this.customerSource.getCustomers();
+        for (TelecomCustomer customer : customers) {
             createBillFor(customer);
         }
         callLog.clear();
     }
 
-    private void createBillFor(Customer customer) {
+    private void createBillFor(TelecomCustomer customer) {
         List<CallEvent> customerEvents = new ArrayList<CallEvent>();
         for (CallEvent callEvent : callLog) {
             if (callEvent.getCaller().equals(customer.getPhoneNumber())) {

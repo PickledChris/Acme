@@ -1,5 +1,6 @@
 package com.acmetelecom.externaladaptors;
 
+import com.acmetelecom.TelecomCustomer;
 import com.acmetelecom.TelecomTariff;
 import com.acmetelecom.TelecomTariffLibrary;
 import com.acmetelecom.customer.Customer;
@@ -18,8 +19,11 @@ public class TariffLibraryManager implements TelecomTariffLibrary {
     }
 
     @Override
-	public TelecomTariff getTariffForCustomer(Customer customer) {
-         return new TariffAdaptor(this.tariffLibrary.tarriffFor(customer));
+	public TelecomTariff getTariffForCustomer(TelecomCustomer customer) {
+    	CustomerFactory factory = new CustomerFactory();
+    	Customer externalCust = factory.createCustomer(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
+        return new TariffAdaptor(this.tariffLibrary.tarriffFor(externalCust));
     }
+
 
 }

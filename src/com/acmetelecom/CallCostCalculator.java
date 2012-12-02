@@ -1,7 +1,5 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.Customer;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ public class CallCostCalculator {
         this.tariffLibrary = tariffLibrary;
     }
 
-    public List<LineItem> calculateCallCosts(Customer customer, List<Call> calls) {
+    public List<LineItem> calculateCallCosts(TelecomCustomer customer, List<Call> calls) {
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {

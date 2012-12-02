@@ -1,7 +1,5 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.Customer;
-
 import java.util.List;
 
 public class BillGenerator {
@@ -12,7 +10,7 @@ public class BillGenerator {
         this.printer = printer;
     }
 
-    public void send(Customer customer, List<LineItem> calls, String totalBill) {
+    public void send(TelecomCustomer customer, List<LineItem> calls, String totalBill) {
 
         this.printer.printHeading(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
         for (LineItem call : calls) {

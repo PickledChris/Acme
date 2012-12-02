@@ -1,5 +1,7 @@
 package com.acmetelecom;
 
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -14,7 +16,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import com.acmetelecom.customer.Customer;
-import com.acmetelecom.externaladaptors.TariffAdaptor;
+import com.acmetelecom.externaladaptors.CustomerAdaptor;
 import com.acmetelecom.externaladaptors.TariffLibraryManager;
 
 /**
@@ -23,20 +25,20 @@ import com.acmetelecom.externaladaptors.TariffLibraryManager;
  */
 public class CallCostTests {
 
-    TariffAdaptor mockTariff;
+    TelecomTariff mockTariff;
     TelecomTariffLibrary mockTariffLibrary;
     CallCostCalculator callCostCalculator;
     String callee = "00000001";
-    Customer customer = new Customer("Bates","00000000","PRICE_PLAN");
+    TelecomCustomer customer = new CustomerAdaptor(new Customer("Bates","00000000","PRICE_PLAN"));
 
     @BeforeTest
     public void setUpTariffLibraryAndCalculator() {
-        this.mockTariff = mock(TariffAdaptor.class);
+        this.mockTariff = mock(TelecomTariff.class);
         when(mockTariff.offPeakRate()).thenReturn(BigDecimal.valueOf(0.10));
         when(mockTariff.peakRate()).thenReturn(BigDecimal.valueOf(0.20));
 
         this.mockTariffLibrary = mock(TariffLibraryManager.class);
-        when(mockTariffLibrary.getTariffForCustomer(Mockito.any(Customer.class))).thenReturn(mockTariff);
+        when(mockTariffLibrary.getTariffForCustomer(Mockito.any(TelecomCustomer.class))).thenReturn(mockTariff);
 
         this.callCostCalculator = new CallCostCalculator(this.mockTariffLibrary);
     }
@@ -53,9 +55,9 @@ public class CallCostTests {
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
 
-        assert items.size() == 1;
+        assertEquals(items.size(), 1);
         LineItem item = items.get(0);
-        assert item.cost().equals(BigDecimal.valueOf(6 * 2));
+        assertEquals(item.cost(), BigDecimal.valueOf(6 * 2));
     }
 
     @Test
@@ -69,9 +71,9 @@ public class CallCostTests {
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
 
-        assert items.size() == 1;
+        assertEquals(items.size(), 1);
         LineItem item = items.get(0);
-        assert item.cost().equals(BigDecimal.valueOf(12 * 2));
+        assertEquals(item.cost(), BigDecimal.valueOf(12 * 2));
     }
 
     @Test
@@ -83,7 +85,7 @@ public class CallCostTests {
         callList.add(this.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assert item.cost().equals(BigDecimal.valueOf(12 * 20));
+        assertEquals(item.cost(), BigDecimal.valueOf(12 * 20));
     }
 
     @Test
@@ -95,7 +97,7 @@ public class CallCostTests {
         callList.add(this.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assert item.cost().equals(BigDecimal.valueOf(12 * 60 * 13));
+        assertEquals(item.cost(), BigDecimal.valueOf(12 * 60 * 13));
     }
 
     @Test
@@ -115,7 +117,7 @@ public class CallCostTests {
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
         LineItem item1 = items.get(0);
         LineItem item2 = items.get(1);
-        assert (item1.cost().add(item2.cost())).equals(BigDecimal.valueOf(12 * (10 + 5)));
+        assertEquals(item1.cost().add(item2.cost()), BigDecimal.valueOf(12 * (10 + 5)));
     }
 
     @Test
@@ -135,7 +137,7 @@ public class CallCostTests {
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
         LineItem item1 = items.get(0);
         LineItem item2 = items.get(1);
-        assert (item1.cost().add(item2.cost())).equals(BigDecimal.valueOf((6 * 10) + (12 * 5)));
+        assertEquals(item1.cost().add(item2.cost()), BigDecimal.valueOf((6 * 10) + (12 * 5)));
     }
 
     /**
