@@ -2,11 +2,9 @@ package com.acmetelecom;
 
 import junit.framework.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Tests for the DaytimePeakPeriod class
