@@ -24,7 +24,7 @@ import com.acmetelecom.externaladaptors.TariffLibraryManager;
 public class CallCostTests {
 
     TariffAdaptor mockTariff;
-    TariffLibraryManager mockTariffLibrary;
+    TelecomTariffLibrary mockTariffLibrary;
     CallCostCalculator callCostCalculator;
     String callee = "00000001";
     Customer customer = new Customer("Bates","00000000","PRICE_PLAN");

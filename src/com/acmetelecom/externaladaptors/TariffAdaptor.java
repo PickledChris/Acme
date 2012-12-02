@@ -1,5 +1,6 @@
 package com.acmetelecom.externaladaptors;
 
+import com.acmetelecom.TelecomTariff;
 import com.acmetelecom.customer.Tariff;
 
 import java.math.BigDecimal;

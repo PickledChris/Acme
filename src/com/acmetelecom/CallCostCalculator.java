@@ -1,8 +1,6 @@
 package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
-import com.acmetelecom.externaladaptors.TariffLibraryManager;
-import com.acmetelecom.externaladaptors.TelecomTariff;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,9 +9,9 @@ import java.util.List;
 
 public class CallCostCalculator {
 
-    private final TariffLibraryManager tariffLibrary;
+    private final TelecomTariffLibrary tariffLibrary;
 
-    public CallCostCalculator(TariffLibraryManager tariffLibrary) {
+    public CallCostCalculator(TelecomTariffLibrary tariffLibrary) {
         this.tariffLibrary = tariffLibrary;
     }
 
