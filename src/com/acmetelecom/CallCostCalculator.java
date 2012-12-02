@@ -1,8 +1,8 @@
 package com.acmetelecom;
 
 import com.acmetelecom.customer.Customer;
-import com.acmetelecom.externaladaptors.TariffAdaptor;
 import com.acmetelecom.externaladaptors.TariffLibraryManager;
+import com.acmetelecom.externaladaptors.TelecomTariff;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -22,7 +22,7 @@ public class CallCostCalculator {
 
         for (Call call : calls) {
 
-            TariffAdaptor tariff = this.tariffLibrary.getTariffForCustomer(customer);
+            TelecomTariff tariff = this.tariffLibrary.getTariffForCustomer(customer);
 
             BigDecimal cost;
 

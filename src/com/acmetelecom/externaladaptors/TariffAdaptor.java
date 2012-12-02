@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * User: Andy
  * Date: 30/11/12
  */
-public class TariffAdaptor {
+public class TariffAdaptor implements TelecomTariff {
 
     private Tariff tariff;
 
@@ -16,11 +16,13 @@ public class TariffAdaptor {
         this.tariff = tariff;
     }
 
-    public BigDecimal peakRate() {
+    @Override
+	public BigDecimal peakRate() {
         return tariff.peakRate();
     }
 
-    public BigDecimal offPeakRate() {
+    @Override
+	public BigDecimal offPeakRate() {
         return tariff.offPeakRate();
     }
 
