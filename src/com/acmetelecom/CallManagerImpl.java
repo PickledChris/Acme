@@ -12,7 +12,7 @@ public class CallManagerImpl implements CallManager {
 
     private Collection<CallEvent> callLog;
 
-    public CallManagerImpl(){
+    public CallManagerImpl() {
         callLog = new ArrayList<CallEvent>();
     }
 
