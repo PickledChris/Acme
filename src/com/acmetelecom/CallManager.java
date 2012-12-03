@@ -8,9 +8,13 @@ import java.util.Collection;
  */
 public interface CallManager {
 
-    public void callInitiated(String caller, String callee);
+    public void callInitiatedNow(String caller, String callee);
 
-    public void callCompleted(String caller, String callee);
+    public void callInitiatedAt(String caller, String callee, long time);
+
+    public void callCompletedNow(String caller, String callee);
+
+    public void callCompletedAt(String caller, String callee, long time);
 
     public Collection<Call> getCallsFor(String caller);
 
