@@ -12,6 +12,10 @@ public class CallManagerImpl implements CallManager {
 
     private Collection<CallEvent> callLog;
 
+    public CallManagerImpl() {
+        callLog = new ArrayList<CallEvent>();
+    }
+
     @Override
     public void callInitiated(String caller, String callee) {
         callLog.add(new CallStart(caller, callee));
