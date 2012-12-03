@@ -4,7 +4,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <link href="files/css/fitnesse.css" rel="stylesheet" type="text/css" />
-
     <title>Simple Call Test</title>
   </head>
 
@@ -26,94 +25,76 @@
 
   <p>Tariff rates are in pence per min</p>
   <table border="0" cellpadding="">
-  <tr>
-      <td colspan="3">Given the following tariffs</td>
-  </tr>
-
-  <tr>
-      <td>Name</td>
-
-      <td>Peak Rate</td>
-
-      <td>Off Peak Rate</td>
-  </tr>
-
-  <tr>
-      <td>Standard</td>
-
-      <td>10</td>
-
-      <td>5</td>
-  </tr>
-
+      <tr>
+          <td colspan="3">Given the following tariffs</td>
+      </tr>
+      <tr>
+          <td>Name</td>
+          <td>Peak Rate</td>
+          <td>Off Peak Rate</td>
+      </tr>
+      <tr>
+          <td>Standard</td>
+          <td>10</td>
+          <td>5</td>
+      </tr>
   </table>
 
   <table border="0" cellpadding="">
       <tr>
         <td colspan="3">Given the following customers</td>
       </tr>
-
       <tr>
           <td>Name</td>
-
-            <td>Phone Number</td>
-
-            <td>Tariff</td>
+          <td>Phone Number</td>
+          <td>Tariff</td>
       </tr>
-
       <tr>
           <td>Dave</td>
-
           <td>00000000000</td>
-
           <td>Standard</td>
       </tr>
-
       <tr>
           <td>Bates</td>
-
           <td>00000000001</td>
-
           <td>Standard</td>
       </tr>
+</table>
 
-    </table><table border="0">
+<table border="0">
       <tr>
         <td>Given the billing system has been initialised</td>
       </tr>
-    </table><p>Dave calls Bates and berates him to assert his superiority.</p>
-    <table border="0">
+</table>
+
+<p>Dave calls Bates and berates him to assert his superiority.</p>
+<table border="0">
       <tr>
         <td colspan="4">Given the following calls are made</td>
       </tr>
-	  
 	  <tr>
         <td>Caller</td>
 	    <td>Callee</td>
         <td>Start time</td>
         <td>End time</td>
 	  </tr>
-	  
       <tr>
         <td>00000000000</td>
         <td>00000000001</td>
         <td>12:00</td>
         <td>12:02</td>
       </tr>
-    </table>
+</table>
     
-    <p>The bill shows the following items</p>
-
-  <table bgcolor="" border="0">
+<p>The bill shows the following items</p>
+<table bgcolor="" border="0">
       <tr>
           <td colspan="2">The bill generated shows</td>
       </tr>
-
       <tr>
           <td>Line</td>
           <td>Text</td>
       </tr>
-
       <tr class="billLine">
           <td>1</td>
           <td>Bates/00000000001 - Price Plan: Standard</td>
@@ -136,5 +117,5 @@
       </tr>
   </table>
 
-  </body>
+</body>
 </html>

@@ -24,8 +24,8 @@ public class GivenTheFollowingTariffs extends ColumnFixture {
 
     @Override
     public void execute() throws Exception {
-        BigDecimal peakRate = BigDecimal.valueOf(Double.parseDouble(this.PeakRate));
-        BigDecimal offPeakRate = BigDecimal.valueOf(Double.parseDouble(this.PeakRate));
+        BigDecimal peakRate = BigDecimal.valueOf(Double.parseDouble(this.PeakRate) / 60);
+        BigDecimal offPeakRate = BigDecimal.valueOf(Double.parseDouble(this.PeakRate) / 60);
         SystemUnderTest.tariffLibrary.addTariff(this.Name, new FakeTariff(peakRate, offPeakRate));
     }
 }
