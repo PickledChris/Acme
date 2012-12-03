@@ -5,24 +5,17 @@ import java.util.*;
 
 public class BillingSystem {
 
-    private List<CallEvent> callLog = new ArrayList<CallEvent>();
     private CustomerDatasource customerSource;
     private Printer printer;
+    private CallManager callManager;
     private final CallCostCalculator callCostCalculator;
 
     public BillingSystem(CustomerDatasource customerSource, TelecomTariffLibrary tariffLibrary,
-                         PeakPeriodDatasource peakManager, Printer printer) {
+                         PeakPeriodDatasource peakManager, Printer printer, CallManager callManager) {
         this.customerSource = customerSource;
         this.printer = printer;
+        this.callManager = callManager;
         this.callCostCalculator = new CallCostCalculator(tariffLibrary, peakManager);
-    }
-
-    public void callInitiated(String caller, String callee) {
-        callLog.add(new CallStart(caller, callee));
-    }
-
-    public void callCompleted(String caller, String callee) {
-        callLog.add(new CallEnd(caller, callee));
     }
 
     public void createCustomerBills() {
@@ -30,30 +23,12 @@ public class BillingSystem {
         for (TelecomCustomer customer : customers) {
             createBillFor(customer);
         }
-        callLog.clear();
+        callManager.clearLog();
     }
 
     private void createBillFor(TelecomCustomer customer) {
-        List<CallEvent> customerEvents = new ArrayList<CallEvent>();
-        for (CallEvent callEvent : callLog) {
-            if (callEvent.getCaller().equals(customer.getPhoneNumber())) {
-                customerEvents.add(callEvent);
-            }
-        }
 
-        List<Call> calls = new ArrayList<Call>();
-
-        CallEvent start = null;
-        for (CallEvent event : customerEvents) {
-            if (event instanceof CallStart) {
-                start = event;
-            }
-            if (event instanceof CallEnd && start != null) {
-                calls.add(new Call(start, event));
-                start = null;
-            }
-        }
-
+        Collection<Call> calls = this.callManager.getCallsFor(customer.getPhoneNumber());
 
         List<LineItem> items = callCostCalculator.calculateCallCosts(customer, calls);
         BigDecimal totalBill = new BigDecimal(0);

@@ -5,6 +5,7 @@ import org.joda.time.LocalTime;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class CallCostCalculator {
@@ -17,7 +18,7 @@ public class CallCostCalculator {
         this.peakManager = peakManager;
     }
 
-    public List<LineItem> calculateCallCosts(TelecomCustomer customer, List<Call> calls) {
+    public List<LineItem> calculateCallCosts(TelecomCustomer customer, Collection<Call> calls) {
         List<LineItem> items = new ArrayList<LineItem>();
 
         for (Call call : calls) {

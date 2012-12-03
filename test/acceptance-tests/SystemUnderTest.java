@@ -1,9 +1,7 @@
 import acme.telecom.fakes.FakeCustomerDatabase;
 import acme.telecom.fakes.FakeTariffLibrary;
 import acme.telecom.fakes.SimplePrinter;
-import com.acmetelecom.BillingSystem;
-import com.acmetelecom.PeakPeriodDatasource;
-import com.acmetelecom.PeakPeriodManager;
+import com.acmetelecom.*;
 
 public class SystemUnderTest {
 
@@ -12,9 +10,10 @@ public class SystemUnderTest {
     public static final SimplePrinter simplePrinter = new SimplePrinter();
     public static final PeakPeriodDatasource peakPeriodManager = new PeakPeriodManager();
     public static BillingSystem billingSystem;
+    public static CallManager callManager = new CallManagerImpl();
 
     public static void reset() {
-        billingSystem = new BillingSystem(customerDatabase, tariffLibrary, peakPeriodManager, simplePrinter);
+        billingSystem = new BillingSystem(customerDatabase, tariffLibrary, peakPeriodManager, simplePrinter, callManager);
 
     }
 

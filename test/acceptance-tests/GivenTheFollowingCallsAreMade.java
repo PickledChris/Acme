@@ -25,8 +25,8 @@ public class GivenTheFollowingCallsAreMade extends ColumnFixture {
     @Override
     public void execute() throws Exception {
         //SystemUnderTest.callList.add(~);
-        SystemUnderTest.billingSystem.callInitiated(Caller, Callee);
+        SystemUnderTest.callManager.callInitiated(Caller, Callee);
         Thread.sleep(5000);
-        SystemUnderTest.billingSystem.callCompleted(Caller, Callee);
+        SystemUnderTest.callManager.callCompleted(Caller, Callee);
     }
 }
