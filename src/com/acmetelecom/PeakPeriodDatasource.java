@@ -8,4 +8,5 @@ public interface PeakPeriodDatasource {
 
     boolean offPeak(LocalTime time);
 
+    void removeAll();
 }

@@ -27,4 +27,9 @@ public class PeakPeriodManager implements PeakPeriodDatasource {
         }
         return isOffPeak;
     }
+
+    @Override
+    public void removeAll() {
+        this.peakPeriods.clear();
+    }
 }
