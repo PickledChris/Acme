@@ -20,7 +20,7 @@ public class TariffLibraryManager implements TelecomTariffLibrary {
 
     @Override
 	public TelecomTariff getTariffForCustomer(TelecomCustomer customer) {
-    	CustomerFactory factory = new CustomerFactory();
+    	CustomerFactory factory = new NormalCustomerFactory();
     	Customer externalCust = factory.createCustomer(customer.getFullName(), customer.getPhoneNumber(), customer.getPricePlan());
         return new TariffAdaptor(this.tariffLibrary.tarriffFor(externalCust));
     }
