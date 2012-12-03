@@ -3,12 +3,12 @@ package com.acmetelecom.externaladaptors;
 import com.acmetelecom.customer.Customer;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Chris
- * Date: 03/12/12
- * Time: 15:41
- * To change this template use File | Settings | File Templates.
+ * Utility class which creates customers for this package.
  */
-public interface CustomerFactory {
-    Customer createCustomer(String customerName, String phoneNumber, String pricePlan);
+class CustomerFactory {
+
+	public Customer createCustomer(String customerName, String phoneNumber, String pricePlan) {
+		return new Customer(customerName, phoneNumber, pricePlan);
+	}
+
 }
