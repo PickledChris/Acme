@@ -11,7 +11,7 @@ public class BillingSystem {
     private final CallCostCalculator callCostCalculator;
 
     public BillingSystem(CustomerDatasource customerSource, TelecomTariffLibrary tariffLibrary,
-                         PeakPeriodManager peakManager, Printer printer) {
+                         PeakPeriodDatasource peakManager, Printer printer) {
         this.customerSource = customerSource;
         this.printer = printer;
         this.callCostCalculator = new CallCostCalculator(tariffLibrary, peakManager);

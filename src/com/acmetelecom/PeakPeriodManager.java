@@ -5,7 +5,7 @@ import org.joda.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PeakPeriodManager {
+public class PeakPeriodManager implements PeakPeriodDatasource {
 
     private List<DaytimePeakPeriod> peakPeriods;
 
@@ -13,10 +13,12 @@ public class PeakPeriodManager {
         this.peakPeriods = new ArrayList<DaytimePeakPeriod>();
     }
 
+    @Override
     public void addPeakPeriod(LocalTime beginTime, LocalTime endTime) {
         this.peakPeriods.add(new DaytimePeakPeriod(beginTime, endTime));
     }
 
+    @Override
     public boolean offPeak(LocalTime time) {
         LocalTime localTime = new LocalTime(time);
         boolean isOffPeak = false;

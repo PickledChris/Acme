@@ -10,9 +10,9 @@ import java.util.List;
 public class CallCostCalculator {
 
     private final TelecomTariffLibrary tariffLibrary;
-    private PeakPeriodManager peakManager;
+    private PeakPeriodDatasource peakManager;
 
-    public CallCostCalculator(TelecomTariffLibrary tariffLibrary, PeakPeriodManager peakManager) {
+    public CallCostCalculator(TelecomTariffLibrary tariffLibrary, PeakPeriodDatasource peakManager) {
         this.tariffLibrary = tariffLibrary;
         this.peakManager = peakManager;
     }
