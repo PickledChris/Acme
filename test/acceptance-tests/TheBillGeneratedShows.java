@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TheBillGeneratedShows extends RowFixture {
-    public static class Row {
+    public static class BillLine {
         public int Line;
         public String Text;
 
-        public Row(int line, String text) {
+        public BillLine(int line, String text) {
             Line = line;
             Text = text;
         }
@@ -17,16 +17,16 @@ public class TheBillGeneratedShows extends RowFixture {
     @Override
     public Object[] query() throws Exception {
         SystemUnderTest.billingSystem.createCustomerBills();
-        List<Row> rows = new ArrayList<Row>();
+        List<BillLine> billLines = new ArrayList<BillLine>();
         for (String line : SystemUnderTest.simplePrinter.getOutput()) {
-            rows.add(new Row(rows.size() + 1, line));
+            billLines.add(new BillLine(billLines.size() + 1, line));
         }
-        return rows.toArray();
+        return billLines.toArray();
     }
 
     @Override
     public Class<?> getTargetClass() {
-        return Row.class;
+        return BillLine.class;
     }
 
 }
