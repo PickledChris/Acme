@@ -10,14 +10,9 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-import org.joda.time.Seconds;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.externaladaptors.CustomerAdaptor;
-import com.acmetelecom.externaladaptors.TariffLibraryManager;
 
 /**
  * User: Andy
@@ -29,7 +24,7 @@ public class CallCostTests {
     TelecomTariffLibrary mockTariffLibrary;
     CallCostCalculator callCostCalculator;
     String callee = "00000001";
-    TelecomCustomer customer = new CustomerAdaptor(new Customer("Bates","00000000","PRICE_PLAN"));
+    TelecomCustomer customer = TelecomMockFactory.createFakeCustomer("Bates","00000000","PRICE_PLAN");
 
     @BeforeTest
     public void setUpTariffLibraryAndCalculator() {
@@ -37,7 +32,7 @@ public class CallCostTests {
         when(mockTariff.offPeakRate()).thenReturn(BigDecimal.valueOf(0.10));
         when(mockTariff.peakRate()).thenReturn(BigDecimal.valueOf(0.20));
 
-        this.mockTariffLibrary = mock(TariffLibraryManager.class);
+        this.mockTariffLibrary = mock(TelecomTariffLibrary.class);
         when(mockTariffLibrary.getTariffForCustomer(Mockito.any(TelecomCustomer.class))).thenReturn(mockTariff);
 
         PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
@@ -46,7 +41,7 @@ public class CallCostTests {
         LocalTime endPeak = new LocalTime(19,0);
         peakPeriodManager.addPeakPeriod(beginPeak, endPeak);
 
-        this.callCostCalculator = new CallCostCalculator(this.mockTariffLibrary, peakPeriodManager);
+        this.callCostCalculator = new TariffCallCostCalculator(this.mockTariffLibrary, peakPeriodManager);
     }
 
     @Test
@@ -57,7 +52,7 @@ public class CallCostTests {
         DateTime callEnd = callStart.plusMinutes(2);
         
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart, callEnd));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
 
@@ -73,7 +68,7 @@ public class CallCostTests {
         DateTime callStart = new DateTime(2012,11,30,12,0,0);
         DateTime callEnd = callStart.plusMinutes(2);
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart, callEnd));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
 
@@ -88,7 +83,7 @@ public class CallCostTests {
         DateTime callStart = new DateTime(2012,11,30,6,50,0);
         DateTime callEnd = callStart.plusMinutes(20);
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart, callEnd));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
         assertEquals(item.cost(), BigDecimal.valueOf(12 * 20));
@@ -100,7 +95,7 @@ public class CallCostTests {
     	DateTime callStart = new DateTime(2012,11,30,6,30,0);
         DateTime callEnd = callStart.plusHours(13);
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart, callEnd));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
         assertEquals(item.cost(), BigDecimal.valueOf(12 * 60 * 13));
@@ -117,8 +112,8 @@ public class CallCostTests {
         DateTime callEnd2 = callStart2.plusMinutes(5);
         
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart1, callEnd1));
-        callList.add(this.createFakeCall(callee, callStart2, callEnd2));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart1, callEnd1));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart2, callEnd2));
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
         LineItem item1 = items.get(0);
@@ -137,24 +132,14 @@ public class CallCostTests {
         DateTime callEnd2 = callStart2.plusMinutes(5);
         
         List<Call> callList = new ArrayList<Call>();
-        callList.add(this.createFakeCall(callee, callStart1, callEnd1));
-        callList.add(this.createFakeCall(callee, callStart2, callEnd2));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart1, callEnd1));
+        callList.add(TelecomMockFactory.createFakeCall(callee, callStart2, callEnd2));
 
         List<LineItem> items = this.callCostCalculator.calculateCallCosts(customer, callList);
         LineItem item1 = items.get(0);
         LineItem item2 = items.get(1);
         assertEquals(item1.cost().add(item2.cost()), BigDecimal.valueOf((6 * 10) + (12 * 5)));
     }
-
-    /**
-     * Helper method to create a fake call
-     */
-    private Call createFakeCall(String calleeNumber, DateTime startTime, DateTime endTime) {
-        Call call = mock(Call.class);
-        when(call.callee()).thenReturn(calleeNumber);
-        when(call.startTime()).thenReturn(startTime.toDate());
-        when(call.endTime()).thenReturn(endTime.toDate());
-        when(call.durationSeconds()).thenReturn(Seconds.secondsBetween(startTime, endTime).getSeconds());
-        return call;
-    }
+    
+    
 }

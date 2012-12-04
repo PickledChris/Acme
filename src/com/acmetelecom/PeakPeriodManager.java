@@ -27,6 +27,13 @@ public class PeakPeriodManager implements PeakPeriodDatasource {
         }
         return isOffPeak;
     }
+    
+    public int amountOfTimeOffpeak(LocalTime startTime, LocalTime endTime) {
+    	for (DaytimePeakPeriod peakPeriod : peakPeriods) {
+    		//if (startTime.isBefore(peakPeriod.))
+    	}
+    	return 0;
+    }
 
     @Override
     public void removeAll() {

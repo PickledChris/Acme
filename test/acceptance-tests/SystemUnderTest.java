@@ -9,13 +9,14 @@ public class SystemUnderTest {
     public static final FakeCustomerDatabase customerDatabase = new FakeCustomerDatabase();
     public static final SimplePrinter simplePrinter = new SimplePrinter();
     public static final PeakPeriodDatasource peakPeriodManager = new PeakPeriodManager();
+    public static final CallCostCalculator costCalculator = new TariffCallCostCalculator(tariffLibrary, peakPeriodManager);
+    public static final TelecomBillGenerator billGenerator = new BillGenerator(simplePrinter);
     public static BillingSystem billingSystem;
-    public static CallManager callManager = new CallManagerImpl();
+    public static TelecomCallManager callManager = new CallManager();
 
     public static void reset() {
         simplePrinter.clearOutput();
-        billingSystem = new BillingSystem(customerDatabase, tariffLibrary,
-                peakPeriodManager, simplePrinter, callManager);
+        billingSystem = new BillingSystem(customerDatabase, costCalculator, callManager, billGenerator);
     }
 
 }

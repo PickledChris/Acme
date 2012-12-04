@@ -21,7 +21,7 @@ public class CallManagerTests {
     @Test
     public void singleCallTest() {
 
-        CallManager c = new CallManagerImpl();
+        TelecomCallManager c = new CallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -37,7 +37,7 @@ public class CallManagerTests {
     @Test
     public void twoCallTest() {
 
-        CallManager c = new CallManagerImpl();
+        TelecomCallManager c = new CallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -65,7 +65,7 @@ public class CallManagerTests {
     @Test
     public void twoCallersTest() {
 
-        CallManager c = new CallManagerImpl();
+        TelecomCallManager c = new CallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -90,7 +90,7 @@ public class CallManagerTests {
     @Test
     public void fiveSecondCall() {
 
-        CallManager manager = new CallManagerImpl();
+        TelecomCallManager manager = new CallManager();
         manager.callInitiatedAt(callerNo1, calleeNo1, 1000);
         manager.callCompletedAt(callerNo1, calleeNo1, 6000);
 
@@ -105,7 +105,7 @@ public class CallManagerTests {
 
     @Test
     public void fiveMinuteCall() {
-        CallManager manager = new CallManagerImpl();
+        TelecomCallManager manager = new CallManager();
         manager.callInitiatedAt(callerNo1, calleeNo1, 0);
         manager.callCompletedAt(callerNo1, calleeNo1, 5 * 60 * 1000);
 

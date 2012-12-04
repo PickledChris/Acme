@@ -1,21 +1,20 @@
 package com.acmetelecom;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 public class BillingSystem {
 
     private CustomerDatasource customerSource;
-    private Printer printer;
-    private CallManager callManager;
+    private TelecomCallManager callManager;
     private final CallCostCalculator callCostCalculator;
+    private final TelecomBillGenerator billGenerator;
 
-    public BillingSystem(CustomerDatasource customerSource, TelecomTariffLibrary tariffLibrary,
-                         PeakPeriodDatasource peakManager, Printer printer, CallManager callManager) {
+    public BillingSystem(CustomerDatasource customerSource, CallCostCalculator callCostCalculator, 
+    		               TelecomCallManager callManager, TelecomBillGenerator billGenerator) {
         this.customerSource = customerSource;
-        this.printer = printer;
         this.callManager = callManager;
-        this.callCostCalculator = new CallCostCalculator(tariffLibrary, peakManager);
+        this.callCostCalculator = callCostCalculator;
+        this.billGenerator = billGenerator;
     }
 
     public void createCustomerBills() {
@@ -27,16 +26,9 @@ public class BillingSystem {
     }
 
     private void createBillFor(TelecomCustomer customer) {
-
         Collection<Call> calls = this.callManager.getCallsFor(customer.getPhoneNumber());
-
         List<LineItem> items = callCostCalculator.calculateCallCosts(customer, calls);
-        BigDecimal totalBill = new BigDecimal(0);
-        for (LineItem item : items) {
-             totalBill = totalBill.add(item.cost());
-        }
-
-        new BillGenerator(this.printer).send(customer, items, MoneyFormatter.penceToPounds(totalBill));
+        billGenerator.send(customer, items);
     }
 
 }

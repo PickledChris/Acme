@@ -1,78 +1,62 @@
 package com.acmetelecom;
 
-import com.acmetelecom.customer.Customer;
-import com.acmetelecom.customer.CustomerDatabase;
-import com.acmetelecom.customer.Tariff;
-import com.acmetelecom.customer.TariffLibrary;
-import com.acmetelecom.externaladaptors.CustomerDatabaseAdaptor;
-import com.acmetelecom.externaladaptors.TariffLibraryManager;
-import org.mockito.Mockito;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import static com.acmetelecom.TelecomMockFactory.createFakeCall;
+import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
+import static java.util.Arrays.asList;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import org.joda.time.DateTime;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
 
 /**
  * Set of tests for the Billing System. Uses Mocking to mock the billing data.
  */
 public class BillingSystemTests {
 
-    TariffLibrary mockTariffLibrary;
+    private CallCostCalculator callCalculator;
+    private CustomerDatasource customerSource;
+    private BillGenerator billGenerator;
+    private TelecomCallManager callManager;
+    
 
     @BeforeTest
     public void setUpTariffLibrary() {
-
-        this.mockTariffLibrary = mock(TariffLibrary.class);
-        when(mockTariffLibrary.tarriffFor(Mockito.any(Customer.class))).thenReturn(Tariff.Standard);
+    	this.customerSource = mock(CustomerDatasource.class);
+        this.billGenerator = mock(BillGenerator.class);
+        this.callManager = mock(TelecomCallManager.class);
+        this.callCalculator = mock(CallCostCalculator.class);
     }
+   
 
     @Test
     public void testThatCallIsMade() throws InterruptedException {
-
-        String caller = "00000000";
-        String callee = "00000001";
-        Customer bates = new Customer("Bates",caller,"PRICE_PLAN");
-        Customer dave = new Customer("Dave",callee,"PRICE_PLAN");
-        List<Customer> customers = new ArrayList<Customer>();
-        customers.add(bates);
-        customers.add(dave);
-
-        Printer mockPrinter = mock(Printer.class);
-
-        CustomerDatabase mockDatabase = mock(CustomerDatabase.class);
-        when(mockDatabase.getCustomers()).thenReturn(customers);
-
-        long callLengthSeconds = 5L;
-        Call call = new Call(mockCallEvent(caller, callee, 0, CallStart.class),
-                mockCallEvent(caller, callee, callLengthSeconds * 1000, CallEnd.class));
-
-        Collection<Call> callList = new ArrayList<Call>();
-        callList.add(call);
-
-        CallManager mockCallManager = mock(CallManager.class);
-        when(mockCallManager.getCallsFor(caller)).thenReturn(callList);
-
-        BillingSystem billingSystem = new BillingSystem(new CustomerDatabaseAdaptor(mockDatabase),
-                new TariffLibraryManager(this.mockTariffLibrary),
-                new PeakPeriodManager(),
-                mockPrinter,
-                mockCallManager);
+    	TelecomCustomer manCustomer = createFakeCustomer("Man", "1", "Expensive");
+    	List<TelecomCustomer> customers = asList(
+    			manCustomer);
+    	when(customerSource.getCustomers()).thenReturn(customers);
+    	List<Call> calls = asList(
+    			createFakeCall("1", new DateTime(), new DateTime()),
+    			createFakeCall("1", new DateTime(), new DateTime()));
+    	when(callManager.getCallsFor("1")).thenReturn(calls);
+    	List<LineItem> lineItems = new ArrayList<LineItem>();
+    	for (Call call : calls) {
+    		lineItems.add(new LineItem(call, new BigDecimal(0)));
+    	}
+    	when(callCalculator.calculateCallCosts(manCustomer, calls)).thenReturn(lineItems);
+        BillingSystem billingSystem = new BillingSystem(customerSource, callCalculator, callManager, billGenerator);
 
         billingSystem.createCustomerBills();
-
-        verify(mockPrinter).printItem(any(String.class), eq(callee), eq("0:0" + callLengthSeconds), any(String.class));
-    }
-
-    private <T extends CallEvent> T mockCallEvent(String caller, String callee, long time, Class<T> callType) {
-        T event = mock(callType);
-        when(event.getCallee()).thenReturn(callee);
-        when(event.getCaller()).thenReturn(caller);
-        when(event.time()).thenReturn(time);
-        return event;
+        verify(customerSource).getCustomers();
+        verify(callManager).getCallsFor(manCustomer.getPhoneNumber());
+        verify(callCalculator).calculateCallCosts(manCustomer, calls);
+        verify(billGenerator).send(manCustomer, lineItems);
     }
 
 }

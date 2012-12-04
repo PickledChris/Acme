@@ -1,7 +1,5 @@
 import fit.ColumnFixture;
 import fit.Parse;
-import fitlibrary.specify.SequenceFixtureFlowUnderTest;
-import org.joda.time.LocalTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
