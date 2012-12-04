@@ -1,12 +1,9 @@
 package com.acmetelecom;
 
-import org.joda.time.LocalTime;
+import org.joda.time.DateTime;
 
 public interface PeakPeriodDatasource {
 
-    void addPeakPeriod(LocalTime beginTime, LocalTime endTime);
+    long secondsInPeak(DateTime startTime, DateTime endTime);
 
-    boolean offPeak(LocalTime time);
-
-    void removeAll();
 }

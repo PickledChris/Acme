@@ -41,10 +41,6 @@ public class CallCostTests {
         when(mockTariffLibrary.getTariffForCustomer(Mockito.any(TelecomCustomer.class))).thenReturn(mockTariff);
 
         PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
-        // Peak period is 7:00 - 19:00
-        LocalTime beginPeak = new LocalTime(7,0);
-        LocalTime endPeak = new LocalTime(19,0);
-        peakPeriodManager.addPeakPeriod(beginPeak, endPeak);
 
         this.callCostCalculator = new CallCostCalculator(this.mockTariffLibrary, peakPeriodManager);
     }

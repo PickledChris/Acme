@@ -1,6 +1,6 @@
 package com.acmetelecom;
 
-import org.joda.time.LocalTime;
+import org.joda.time.DateTime;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,16 +25,13 @@ public class CallCostCalculator {
 
             TelecomTariff tariff = this.tariffLibrary.getTariffForCustomer(customer);
 
-            BigDecimal cost;
-
-            LocalTime callStartTime = new LocalTime(call.startTime());
-            LocalTime callEndTime = new LocalTime(call.endTime());
-            if (peakManager.offPeak(callStartTime) && peakManager.offPeak(callEndTime)
-                    && call.durationSeconds() < 12 * 60 * 60) {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.offPeakRate());
-            } else {
-                cost = new BigDecimal(call.durationSeconds()).multiply(tariff.peakRate());
-            }
+            DateTime callStartTime = new DateTime(call.startTime());
+            DateTime callEndTime = new DateTime(call.endTime());
+            long peakSeconds = peakManager.secondsInPeak(callStartTime, callEndTime);
+            long offPeakSeconds = call.durationSeconds() - peakSeconds;
+            BigDecimal offPeakCost = new BigDecimal(offPeakSeconds).multiply(tariff.offPeakRate());
+            BigDecimal peakCost = new BigDecimal(peakSeconds).multiply(tariff.peakRate());
+            BigDecimal cost = offPeakCost.add(peakCost);
 
             cost = cost.setScale(0, RoundingMode.HALF_UP);
             BigDecimal callCost = cost;

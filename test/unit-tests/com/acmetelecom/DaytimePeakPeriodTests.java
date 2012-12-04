@@ -1,9 +1,11 @@
 package com.acmetelecom;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 
@@ -12,27 +14,18 @@ import static junit.framework.Assert.assertTrue;
  */
 public class DaytimePeakPeriodTests {
 
-    // 7:00
-    private LocalTime peakPeriodStart = new LocalTime(7,0);
-    // 19:00
-    private LocalTime peakPeriodEnd = new LocalTime(19,0);
-    private PeakPeriodManager peakPeriodManager;
-
-    @BeforeTest
-    public void setupPeakPeriod() {
-        this.peakPeriodManager = new PeakPeriodManager();
-        this.peakPeriodManager.addPeakPeriod(peakPeriodStart, peakPeriodEnd);
-    }
-
+    private PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
+    DateTime beginPeak = new LocalTime(7,0,0).toDateTimeToday();
+    DateTime endPeak = new LocalTime(19,0,0).toDateTimeToday();
 
     @Test
     public void offPeakEveningTest() {
 
         // 19:00:01
-        LocalTime offPeakEvening = new LocalTime(19,0,1);
-        boolean result = this.peakPeriodManager.offPeak(offPeakEvening);
-        assertTrue("The time " + offPeakEvening +
-                " was not declared off peak when it should have", result);
+        DateTime offPeakEvening = new LocalTime(19,0,1).toDateTimeToday();
+        long peakSecs = this.peakPeriodManager.secondsInPeak(endPeak, offPeakEvening);
+        assertEquals("The time " + offPeakEvening +
+                " was not declared off peak when it should have", 0, peakSecs);
     }
 
 
@@ -40,10 +33,10 @@ public class DaytimePeakPeriodTests {
     public void onPeakEveningTest() {
 
         // 18:59:59
-        LocalTime peakEvening = new LocalTime(18,59,59);
-        boolean result = this.peakPeriodManager.offPeak(peakEvening);
-        assertFalse("The time " + peakEvening +
-                " was declared off peak when it should have been on peak.", result);
+        DateTime peakEvening = new LocalTime(18,59,59).toDateTimeToday();
+        long peakSecs = this.peakPeriodManager.secondsInPeak(peakEvening,endPeak);
+        assertEquals("The time " + peakEvening +
+                " was declared off peak when it should have been on peak.", 1, peakSecs);
 
     }
 
@@ -51,20 +44,20 @@ public class DaytimePeakPeriodTests {
     public void onPeakMorningTest() {
 
         // 07:00:01
-        LocalTime peakMorning = new LocalTime(7,0,1);
-        boolean result = this.peakPeriodManager.offPeak(peakMorning);
-        assertFalse("The time " + peakMorning +
-                " was declared off peak when it should have been on peak.", result);
+        DateTime peakMorning = new LocalTime(7,0,1).toDateTimeToday();
+        long peakSecs = this.peakPeriodManager.secondsInPeak(beginPeak, peakMorning);
+        assertEquals("The time " + peakMorning +
+                " was declared off peak when it should have been on peak.", 1, peakSecs);
     }
 
     @Test
     public void offPeakMorningTest() {
 
         // 06:59:59
-        LocalTime offPeakMorning = new LocalTime(6,59,59);
-        boolean result = this.peakPeriodManager.offPeak(offPeakMorning);
-        assertTrue("The time " + offPeakMorning +
-                "was not declared off peak when it should have", result);
+        DateTime offPeakMorning = new LocalTime(6,59,59).toDateTimeToday();
+        long peakSecs = this.peakPeriodManager.secondsInPeak(offPeakMorning, beginPeak);
+        assertEquals("The time " + offPeakMorning +
+                "was not declared off peak when it should have", 0, peakSecs);
     }
 
 }
