@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -36,10 +35,6 @@ public class CallCostTests {
         when(mockTariffLibrary.getTariffForCustomer(Mockito.any(TelecomCustomer.class))).thenReturn(mockTariff);
 
         PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
-        // Peak period is 7:00 - 19:00
-        LocalTime beginPeak = new LocalTime(7,0);
-        LocalTime endPeak = new LocalTime(19,0);
-        peakPeriodManager.addPeakPeriod(beginPeak, endPeak);
 
         this.callCostCalculator = new TariffCallCostCalculator(this.mockTariffLibrary, peakPeriodManager);
     }
@@ -86,7 +81,7 @@ public class CallCostTests {
         callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(12 * 20));
+        assertEquals(item.cost(), BigDecimal.valueOf(12 * 10 + 6 * 10));
     }
 
     @Test
@@ -98,7 +93,7 @@ public class CallCostTests {
         callList.add(TelecomMockFactory.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(12 * 60 * 13));
+        assertEquals(BigDecimal.valueOf(12 * 60 * 12 + 6 * 60), item.cost());
     }
 
     @Test

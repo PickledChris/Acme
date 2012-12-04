@@ -7,5 +7,4 @@ public interface CallCostCalculator {
 
 	public List<LineItem> calculateCallCosts(TelecomCustomer customer,
 			Collection<Call> calls);
-
 }

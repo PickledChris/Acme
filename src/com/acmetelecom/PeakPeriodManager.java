@@ -1,42 +1,39 @@
 package com.acmetelecom;
 
+import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.joda.time.Seconds;
 
 public class PeakPeriodManager implements PeakPeriodDatasource {
 
-    private List<DaytimePeakPeriod> peakPeriods;
-
-    public PeakPeriodManager() {
-        this.peakPeriods = new ArrayList<DaytimePeakPeriod>();
-    }
+    private LocalTime peakPeriodStartTime = new LocalTime(7,0,0);
+    private LocalTime peakPeriodEndTime = new LocalTime(19,0,0);
 
     @Override
-    public void addPeakPeriod(LocalTime beginTime, LocalTime endTime) {
-        this.peakPeriods.add(new DaytimePeakPeriod(beginTime, endTime));
-    }
-
-    @Override
-    public boolean offPeak(LocalTime time) {
-        LocalTime localTime = new LocalTime(time);
-        boolean isOffPeak = false;
-        for (DaytimePeakPeriod peakPeriod : peakPeriods) {
-            isOffPeak = isOffPeak || peakPeriod.offPeak(localTime);
+    public long secondsInPeak(DateTime startTime, DateTime endTime) {
+        DateTime peakStart = peakPeriodStartTime.toDateTime(startTime);
+        DateTime peakEnd = peakPeriodEndTime.toDateTime(startTime);
+        if (startTime.isBefore(peakStart)) {
+           // Call starts before peak period
+           if (endTime.isBefore(peakStart)) {
+               // Entire call is before peak period
+               return 0;
+           }
+           Seconds secondsSincePeak = Seconds.secondsBetween(peakStart, endTime);
+           if (endTime.isBefore(peakEnd)) {
+               // Call ends in peak period
+               return secondsSincePeak.getSeconds();
+           }
+           // Call lasts entire peak period and ends after peak period
+           return Seconds.secondsBetween(peakStart, peakEnd).getSeconds();
         }
-        return isOffPeak;
-    }
-    
-    public int amountOfTimeOffpeak(LocalTime startTime, LocalTime endTime) {
-    	for (DaytimePeakPeriod peakPeriod : peakPeriods) {
-    		//if (startTime.isBefore(peakPeriod.))
-    	}
-    	return 0;
-    }
-
-    @Override
-    public void removeAll() {
-        this.peakPeriods.clear();
+        if (startTime.isBefore(peakEnd)) {
+            if (endTime.isBefore(peakEnd)) {
+                // Entire call is in peak time
+                return Seconds.secondsBetween(startTime, endTime).getSeconds();
+            }
+            return Seconds.secondsBetween(startTime, peakEnd).getSeconds();
+        }
+        return 0;
     }
 }
