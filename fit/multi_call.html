@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <link href="files/css/fitnesse.css" rel="stylesheet" type="text/css" />
+    <title>Multi Call Test</title>
+  </head>
+
+  <body><h1>Multi Call Test</h1>
+
+  <table border="0" cellpadding="">
+      <tr>
+          <td colspan="3">Given the following peak periods</td>
+      </tr>
+      <tr>
+          <td>Start</td>
+          <td>Finish</td>
+      </tr>
+      <tr>
+          <td>18:00</td>
+          <td>20:00</td>
+      </tr>
+  </table>
+
+  <p>Tariff rates are in pence per min</p>
+  <table border="0" cellpadding="">
+      <tr>
+          <td colspan="3">Given the following tariffs</td>
+      </tr>
+      <tr>
+          <td>Name</td>
+          <td>Peak Rate</td>
+          <td>Off Peak Rate</td>
+      </tr>
+      <tr>
+          <td>Standard</td>
+          <td>10</td>
+          <td>5</td>
+      </tr>
+  </table>
+
+  <table border="0" cellpadding="">
+      <tr>
+        <td colspan="3">Given the following customers</td>
+      </tr>
+      <tr>
+          <td>Name</td>
+          <td>Phone Number</td>
+          <td>Tariff</td>
+      </tr>
+      <tr>
+          <td>Dave</td>
+          <td>00000000000</td>
+          <td>Standard</td>
+      </tr>
+      <tr>
+          <td>Bates</td>
+          <td>00000000001</td>
+          <td>Standard</td>
+      </tr>
+</table>
+
+<table border="0">
+      <tr>
+        <td>Given the billing system has been initialised</td>
+      </tr>
+</table>
+
+  <p>Bates makes several calls Dave, who rudely hangs up each time. Dave meanwhile calls Bates' friends to poison their
+      minds against him.</p>
+  <table border="0">
+      <tr>
+          <td colspan="4">Given the following calls are made</td>
+      </tr>
+      <tr>
+          <td>Caller</td>
+          <td>Callee</td>
+          <td>Start time</td>
+          <td>End time</td>
+      </tr>
+      <tr>
+          <td>00000000001</td>
+          <td>00000000000</td>
+          <td>04/12/12 12:00:00</td>
+          <td>04/12/12 12:01:00</td>
+      </tr>
+      <tr>
+          <td>00000000001</td>
+          <td>00000000000</td>
+          <td>04/12/12 16:00:00</td>
+          <td>04/12/12 16:01:00</td>
+      </tr>
+      <tr>
+          <td>00000000001</td>
+          <td>00000000000</td>
+          <td>04/12/12 19:00:00</td>
+          <td>04/12/12 19:01:00</td>
+      </tr>
+      <tr>
+          <td>00000000000</td>
+          <td>00000000002</td>
+          <td>04/12/12 14:00:00</td>
+          <td>04/12/12 14:30:00</td>
+      </tr>
+      <tr>
+          <td>00000000000</td>
+          <td>00000000003</td>
+          <td>04/12/12 19:30:00</td>
+          <td>04/12/12 19:45:00</td>
+      </tr>
+  </table>
+    
+<p>The bill shows the following items</p>
+<table bgcolor="" border="0">
+      <tr>
+          <td colspan="2">The bill generated shows</td>
+      </tr>
+      <tr>
+          <td>Line</td>
+          <td>Text</td>
+      </tr>
+      <tr class="billLine">
+          <td>1</td>
+          <td>Bates/00000000001 - Price Plan: Standard</td>
+      </tr>
+      <tr class="billLine">
+          <td>2</td>
+          <td>04/12/12 12:00: Call to 00000000000 lasting 1:00 - cost 0.05</td>
+      </tr>
+    <tr class="billLine">
+        <td>3</td>
+        <td>04/12/12 16:00: Call to 00000000000 lasting 1:00 - cost 0.05</td>
+    </tr>
+    <tr class="billLine">
+        <td>4</td>
+        <td>04/12/12 19:00: Call to 00000000000 lasting 1:00 - cost 0.10</td>
+    </tr>
+      <tr class="billLine">
+          <td>5</td>
+          <td>Total bill: 0.20</td>
+      </tr>
+      <tr class="billLine">
+          <td>6</td>
+          <td>Dave/00000000000 - Price Plan: Standard</td>
+      </tr>
+      <tr class="billLine">
+          <td>7</td>
+          <td>04/12/12 14:00: Call to 00000000002 lasting 30:00 - cost 1.50</td>
+      </tr>
+    <tr class="billLine">
+        <td>8</td>
+        <td>04/12/12 19:30: Call to 00000000003 lasting 15:00 - cost 1.50</td>
+    </tr>
+      <tr class="billLine">
+          <td>9</td>
+          <td>Total bill: 3.00</td>
+      </tr>
+  </table>
+
+</body>
+</html>
