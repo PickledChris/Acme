@@ -1,5 +1,9 @@
 import fit.ColumnFixture;
 import fit.Parse;
+import fitlibrary.specify.SequenceFixtureFlowUnderTest;
+import org.joda.time.LocalTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 public class GivenTheFollowingCallsAreMade extends ColumnFixture {
 
@@ -24,9 +28,10 @@ public class GivenTheFollowingCallsAreMade extends ColumnFixture {
 
     @Override
     public void execute() throws Exception {
-        //SystemUnderTest.callList.add(~);
-        SystemUnderTest.callManager.callInitiatedNow(Caller, Callee);
-        Thread.sleep(5000);
-        SystemUnderTest.callManager.callCompletedNow(Caller, Callee);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormat.forPattern("dd/MM/yy HH:mm:ss");
+        Long startTime = dateTimeFormatter.parseDateTime(StartTime).toDate().getTime();
+        Long endTime = dateTimeFormatter.parseDateTime(EndTime).toDate().getTime();
+        SystemUnderTest.callManager.callInitiatedAt(Caller, Callee, startTime);
+        SystemUnderTest.callManager.callCompletedAt(Caller, Callee, endTime);
     }
 }
