@@ -13,8 +13,9 @@ public class SystemUnderTest {
     public static CallManager callManager = new CallManagerImpl();
 
     public static void reset() {
-        billingSystem = new BillingSystem(customerDatabase, tariffLibrary, peakPeriodManager, simplePrinter, callManager);
-
+        simplePrinter.clearOutput();
+        billingSystem = new BillingSystem(customerDatabase, tariffLibrary,
+                peakPeriodManager, simplePrinter, callManager);
     }
 
 }

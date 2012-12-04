@@ -14,7 +14,7 @@ public class GivenTheFollowingCallsAreMade extends ColumnFixture {
 
     @Override
     public void doRows(Parse rows) {
-        //SystemUnderTest.callList.clear();
+        SystemUnderTest.callManager.clearLog();
         super.doRows(rows);
     }
 

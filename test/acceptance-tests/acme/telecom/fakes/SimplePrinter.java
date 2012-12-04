@@ -25,6 +25,11 @@ public class SimplePrinter implements Printer {
         return output;
     }
 
+    public void clearOutput() {
+        this.customerMap.clear();
+        this.currentPhoneNumber = null;
+    }
+
     @Override
     public void printHeading(String name, String phoneNumber, String pricePlan) {
         this.currentPhoneNumber = phoneNumber;
