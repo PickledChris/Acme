@@ -4,9 +4,6 @@ import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PeakPeriodManager implements PeakPeriodDatasource {
 
     private LocalTime peakPeriodStartTime = new LocalTime(7,0,0);
@@ -14,26 +11,28 @@ public class PeakPeriodManager implements PeakPeriodDatasource {
 
     @Override
     public long secondsInPeak(DateTime startTime, DateTime endTime) {
-        if (startTime.toLocalTime().isBefore(peakPeriodStartTime)) {
+        DateTime peakStart = peakPeriodStartTime.toDateTime(startTime);
+        DateTime peakEnd = peakPeriodEndTime.toDateTime(startTime);
+        if (startTime.isBefore(peakStart)) {
            // Call starts before peak period
-           if (endTime.toLocalTime().isBefore(peakPeriodStartTime)) {
+           if (endTime.isBefore(peakStart)) {
                // Entire call is before peak period
                return 0;
            }
-           Seconds secondsSincePeak = Seconds.secondsBetween(peakPeriodStartTime, endTime.toLocalTime());
-           if (endTime.toLocalTime().isBefore(peakPeriodEndTime)) {
+           Seconds secondsSincePeak = Seconds.secondsBetween(peakStart, endTime);
+           if (endTime.isBefore(peakEnd)) {
                // Call ends in peak period
                return secondsSincePeak.getSeconds();
            }
            // Call lasts entire peak period and ends after peak period
-           return Seconds.secondsBetween(peakPeriodStartTime, peakPeriodEndTime).getSeconds();
+           return Seconds.secondsBetween(peakStart, peakEnd).getSeconds();
         }
-        if (startTime.toLocalTime().isBefore(peakPeriodEndTime)) {
-            if (endTime.toLocalTime().isBefore(peakPeriodEndTime)) {
+        if (startTime.isBefore(peakEnd)) {
+            if (endTime.isBefore(peakEnd)) {
                 // Entire call is in peak time
                 return Seconds.secondsBetween(startTime, endTime).getSeconds();
             }
-            return Seconds.secondsBetween(startTime.toLocalTime(), peakPeriodEndTime).getSeconds();
+            return Seconds.secondsBetween(startTime, peakEnd).getSeconds();
         }
         return 0;
     }

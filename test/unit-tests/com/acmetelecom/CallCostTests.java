@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;
@@ -87,7 +86,7 @@ public class CallCostTests {
         callList.add(this.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(12 * 20));
+        assertEquals(item.cost(), BigDecimal.valueOf(12 * 10 + 6 * 10));
     }
 
     @Test
@@ -99,7 +98,7 @@ public class CallCostTests {
         callList.add(this.createFakeCall(callee, callStart, callEnd));
 
         LineItem item = this.callCostCalculator.calculateCallCosts(customer, callList).get(0);
-        assertEquals(item.cost(), BigDecimal.valueOf(12 * 60 * 13));
+        assertEquals(BigDecimal.valueOf(12 * 60 * 12 + 6 * 60), item.cost());
     }
 
     @Test
