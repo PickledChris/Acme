@@ -1,8 +1,8 @@
 package com.acmetelecom.external.adaptors;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
-import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
-import com.acmetelecom.external.interfacecopies.TelecomTariff;
+import com.acmetelecom.billingsystem.TelecomCustomer;
+import com.acmetelecom.billingsystem.TelecomTariff;
+import com.acmetelecom.billingsystem.TelecomTariffLibrary;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.TariffLibrary;
 

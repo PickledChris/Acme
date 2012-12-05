@@ -11,7 +11,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.billgenerator.BillGenerator;
+import com.acmetelecom.billingsystem.BillingSystem;
+import com.acmetelecom.billingsystem.Call;
+import com.acmetelecom.billingsystem.CallCostCalculator;
+import com.acmetelecom.billingsystem.CustomerDatasource;
+import com.acmetelecom.billingsystem.LineItem;
+import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.billingsystem.TelecomCustomer;
+
 import org.joda.time.DateTime;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

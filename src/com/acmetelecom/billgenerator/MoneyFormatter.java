@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.billgenerator;
 
 import java.math.BigDecimal;
 

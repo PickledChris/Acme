@@ -2,6 +2,15 @@ import acme.telecom.fakes.FakeCustomerDatabase;
 import acme.telecom.fakes.FakeTariffLibrary;
 import acme.telecom.fakes.SimplePrinter;
 import com.acmetelecom.*;
+import com.acmetelecom.billcalculator.PeakPeriodDatasource;
+import com.acmetelecom.billcalculator.TariffCallCostCalculator;
+import com.acmetelecom.billcalculator.peak.PeakPeriodManager;
+import com.acmetelecom.billgenerator.BillGenerator;
+import com.acmetelecom.billingsystem.BillingSystem;
+import com.acmetelecom.billingsystem.CallCostCalculator;
+import com.acmetelecom.billingsystem.TelecomBillGenerator;
+import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.callmanager.SingleReceiverCallManager;
 
 public class SystemUnderTest {
 

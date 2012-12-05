@@ -8,9 +8,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.external.interfacecopies.TelecomTariff;
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
-import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
+import com.acmetelecom.billcalculator.TariffCallCostCalculator;
+import com.acmetelecom.billcalculator.peak.PeakPeriodManager;
+import com.acmetelecom.billingsystem.Call;
+import com.acmetelecom.billingsystem.CallCostCalculator;
+import com.acmetelecom.billingsystem.LineItem;
+import com.acmetelecom.billingsystem.TelecomCustomer;
+import com.acmetelecom.billingsystem.TelecomTariff;
+import com.acmetelecom.billingsystem.TelecomTariffLibrary;
+
 import org.joda.time.DateTime;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;

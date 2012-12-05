@@ -1,6 +1,11 @@
 package com.acmetelecom;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.billgenerator.BillGenerator;
+import com.acmetelecom.billgenerator.Printer;
+import com.acmetelecom.billingsystem.LineItem;
+import com.acmetelecom.billingsystem.TelecomBillGenerator;
+import com.acmetelecom.billingsystem.TelecomCustomer;
+
 import org.joda.time.DateTime;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;

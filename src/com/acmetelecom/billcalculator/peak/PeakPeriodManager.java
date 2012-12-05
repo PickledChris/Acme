@@ -1,8 +1,10 @@
-package com.acmetelecom;
+package com.acmetelecom.billcalculator.peak;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 import org.joda.time.Seconds;
+
+import com.acmetelecom.billcalculator.PeakPeriodDatasource;
 
 public class PeakPeriodManager implements PeakPeriodDatasource {
 

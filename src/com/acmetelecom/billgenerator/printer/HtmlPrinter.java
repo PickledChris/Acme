@@ -1,4 +1,6 @@
-package com.acmetelecom;
+package com.acmetelecom.billgenerator.printer;
+
+import com.acmetelecom.billgenerator.Printer;
 
 class HtmlPrinter implements Printer {
 

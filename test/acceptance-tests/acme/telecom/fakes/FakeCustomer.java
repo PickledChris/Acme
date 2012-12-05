@@ -1,6 +1,6 @@
 package acme.telecom.fakes;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.billingsystem.TelecomCustomer;
 
 public class FakeCustomer implements TelecomCustomer {
 

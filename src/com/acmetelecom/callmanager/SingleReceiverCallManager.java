@@ -1,8 +1,12 @@
-package com.acmetelecom;
+package com.acmetelecom.callmanager;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import com.acmetelecom.billingsystem.Call;
+import com.acmetelecom.billingsystem.CallEvent;
+import com.acmetelecom.billingsystem.TelecomCallManager;
 
 /**
  * User: Chris Bates

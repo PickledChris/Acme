@@ -1,6 +1,5 @@
-package com.acmetelecom;
+package com.acmetelecom.billingsystem;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 
 import java.util.Collection;
 import java.util.List;

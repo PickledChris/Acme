@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.billcalculator;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -6,9 +6,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
-import com.acmetelecom.external.interfacecopies.TelecomTariff;
-import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
+import com.acmetelecom.billingsystem.Call;
+import com.acmetelecom.billingsystem.CallCostCalculator;
+import com.acmetelecom.billingsystem.LineItem;
+import com.acmetelecom.billingsystem.TelecomCustomer;
+import com.acmetelecom.billingsystem.TelecomTariff;
+import com.acmetelecom.billingsystem.TelecomTariffLibrary;
+
 import org.joda.time.DateTime;
 
 public class TariffCallCostCalculator implements CallCostCalculator {

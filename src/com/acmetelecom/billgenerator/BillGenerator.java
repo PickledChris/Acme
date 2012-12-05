@@ -1,6 +1,8 @@
-package com.acmetelecom;
+package com.acmetelecom.billgenerator;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.billingsystem.LineItem;
+import com.acmetelecom.billingsystem.TelecomBillGenerator;
+import com.acmetelecom.billingsystem.TelecomCustomer;
 
 import java.math.BigDecimal;
 import java.util.List;

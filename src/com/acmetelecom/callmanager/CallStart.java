@@ -1,4 +1,6 @@
-package com.acmetelecom;
+package com.acmetelecom.callmanager;
+
+import com.acmetelecom.billingsystem.CallEvent;
 
 public class CallStart extends CallEvent {
     public CallStart(String caller, String callee) {

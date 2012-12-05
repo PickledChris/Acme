@@ -3,9 +3,11 @@ package com.acmetelecom;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 import org.joda.time.DateTime;
 import org.joda.time.Seconds;
+
+import com.acmetelecom.billingsystem.Call;
+import com.acmetelecom.billingsystem.TelecomCustomer;
 
 class TelecomMockFactory {
 	

@@ -1,6 +1,6 @@
 package acme.telecom.fakes;
 
-import com.acmetelecom.Printer;
+import com.acmetelecom.billgenerator.Printer;
 
 import java.util.*;
 
