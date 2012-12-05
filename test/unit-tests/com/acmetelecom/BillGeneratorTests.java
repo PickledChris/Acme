@@ -1,19 +1,17 @@
 package com.acmetelecom;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
-
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 import org.joda.time.DateTime;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
-import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
+
 import static com.acmetelecom.TelecomMockFactory.createFakeCall;
+import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
+import static org.mockito.Mockito.*;
 
 
 public class BillGeneratorTests {
