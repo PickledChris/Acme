@@ -5,8 +5,8 @@ import java.util.*;
 
 public class BillingSystem {
 
-    private CustomerDatasource customerSource;
-    private TelecomCallManager callManager;
+    private final CustomerDatasource customerSource;
+    private final TelecomCallManager callManager;
     private final CallCostCalculator callCostCalculator;
     private final TelecomBillGenerator billGenerator;
 

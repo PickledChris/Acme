@@ -18,7 +18,7 @@ import org.joda.time.DateTime;
 public class TariffCallCostCalculator implements CallCostCalculator {
 
     private final TelecomTariffLibrary tariffLibrary;
-    private PeakPeriodDatasource peakManager;
+    private final PeakPeriodDatasource peakManager;
 
     public TariffCallCostCalculator(TelecomTariffLibrary tariffLibrary, PeakPeriodDatasource peakManager) {
         this.tariffLibrary = tariffLibrary;

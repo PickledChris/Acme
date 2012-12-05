@@ -9,7 +9,7 @@ import java.util.List;
 
 public class BillGenerator implements TelecomBillGenerator {
 
-    private Printer printer;
+    private final Printer printer;
 
     public BillGenerator(Printer printer) {
         this.printer = printer;

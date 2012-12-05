@@ -6,10 +6,15 @@ import org.joda.time.Seconds;
 
 import com.acmetelecom.billcalculator.PeakPeriodDatasource;
 
+/**
+ * Class to store information about peak period times. Provides a
+ * method to calculate how much of a call occurs in a peak period.
+ */
+
 public class PeakPeriodManager implements PeakPeriodDatasource {
 
-    private LocalTime peakPeriodStartTime = new LocalTime(7,0,0);
-    private LocalTime peakPeriodEndTime = new LocalTime(19,0,0);
+    private final LocalTime peakPeriodStartTime = new LocalTime(7,0,0);
+    private final LocalTime peakPeriodEndTime = new LocalTime(19,0,0);
 
     @Override
     public long secondsInPeak(DateTime startTime, DateTime endTime) {
@@ -34,8 +39,10 @@ public class PeakPeriodManager implements PeakPeriodDatasource {
                 // Entire call is in peak time
                 return Seconds.secondsBetween(startTime, endTime).getSeconds();
             }
+            // Part of the call is in peak time
             return Seconds.secondsBetween(startTime, peakEnd).getSeconds();
         }
+        // No part of the call is in peak time
         return 0;
     }
 }

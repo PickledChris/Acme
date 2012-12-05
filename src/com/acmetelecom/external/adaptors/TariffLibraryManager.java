@@ -12,7 +12,7 @@ import com.acmetelecom.customer.TariffLibrary;
  */
 public class TariffLibraryManager implements TelecomTariffLibrary {
 
-    private TariffLibrary tariffLibrary;
+    private final TariffLibrary tariffLibrary;
 
     public TariffLibraryManager(TariffLibrary tariffLibrary) {
         this.tariffLibrary = tariffLibrary;

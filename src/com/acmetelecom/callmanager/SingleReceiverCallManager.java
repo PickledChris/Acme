@@ -14,7 +14,7 @@ import com.acmetelecom.billingsystem.TelecomCallManager;
  */
 public class SingleReceiverCallManager implements TelecomCallManager {
 
-    private Collection<CallEvent> callLog;
+    private final Collection<CallEvent> callLog;
 
     public SingleReceiverCallManager() {
         callLog = new ArrayList<CallEvent>();

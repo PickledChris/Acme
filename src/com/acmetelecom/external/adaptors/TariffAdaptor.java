@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class TariffAdaptor implements TelecomTariff {
 
-    private Tariff tariff;
+    private final Tariff tariff;
 
     public TariffAdaptor(Tariff tariff) {
         this.tariff = tariff;

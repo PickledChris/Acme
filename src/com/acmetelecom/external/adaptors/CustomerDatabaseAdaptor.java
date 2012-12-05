@@ -10,7 +10,7 @@ import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
 
 public class CustomerDatabaseAdaptor implements CustomerDatasource {
-	private CustomerDatabase database;
+	private final CustomerDatabase database;
 	
 	public CustomerDatabaseAdaptor(CustomerDatabase database) {
 		this.database = database;
