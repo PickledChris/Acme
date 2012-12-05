@@ -1,7 +1,7 @@
 package acme.telecom.fakes;
 
 import com.acmetelecom.CustomerDatasource;
-import com.acmetelecom.TelecomCustomer;
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

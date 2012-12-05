@@ -8,6 +8,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.acmetelecom.external.interfacecopies.TelecomTariff;
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
 import org.joda.time.DateTime;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeTest;

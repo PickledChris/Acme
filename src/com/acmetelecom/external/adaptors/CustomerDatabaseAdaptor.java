@@ -1,10 +1,11 @@
-package com.acmetelecom.externaladaptors;
+package com.acmetelecom.external.adaptors;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.acmetelecom.CustomerDatasource;
-import com.acmetelecom.TelecomCustomer;
+import com.acmetelecom.external.adaptors.CustomerAdaptor;
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 import com.acmetelecom.customer.Customer;
 import com.acmetelecom.customer.CustomerDatabase;
 

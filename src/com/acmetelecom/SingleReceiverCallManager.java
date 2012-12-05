@@ -8,11 +8,11 @@ import java.util.List;
  * User: Chris Bates
  * Date: 03/12/12
  */
-public class CallManager implements TelecomCallManager {
+public class SingleReceiverCallManager implements TelecomCallManager {
 
     private final Collection<CallEvent> callLog;
 
-    public CallManager() {
+    public SingleReceiverCallManager() {
         callLog = new ArrayList<CallEvent>();
     }
 
