@@ -7,13 +7,13 @@ import org.joda.time.LocalTime;
 import org.testng.annotations.Test;
 
 /**
- * Tests for the DaytimePeakPeriod class
+ * Tests for the PeakPeriodManager used by the system
  */
 public class DaytimePeakPeriodTests {
 
-    private PeakPeriodManager peakPeriodManager = new PeakPeriodManager();
-    DateTime beginPeak = new LocalTime(7,0,0).toDateTimeToday();
-    DateTime endPeak = new LocalTime(19,0,0).toDateTimeToday();
+    private PeakPeriodDatasource peakPeriodManager = new PeakPeriodManager();
+    private DateTime beginPeak = new LocalTime(7,0,0).toDateTimeToday();
+    private DateTime endPeak = new LocalTime(19,0,0).toDateTimeToday();
 
     @Test
     public void offPeakEveningTest() {

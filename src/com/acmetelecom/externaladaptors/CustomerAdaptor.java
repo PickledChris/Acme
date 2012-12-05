@@ -4,7 +4,7 @@ import com.acmetelecom.TelecomCustomer;
 import com.acmetelecom.customer.Customer;
 
 public class CustomerAdaptor implements TelecomCustomer {
-	private Customer customer;
+	private final Customer customer;
 
 	public CustomerAdaptor(Customer customer) {
 		this.customer = customer;

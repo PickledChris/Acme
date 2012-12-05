@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class CallManager implements TelecomCallManager {
 
-    private Collection<CallEvent> callLog;
+    private final Collection<CallEvent> callLog;
 
     public CallManager() {
         callLog = new ArrayList<CallEvent>();
