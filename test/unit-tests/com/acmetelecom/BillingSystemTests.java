@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.joda.time.DateTime;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -26,8 +26,8 @@ public class BillingSystemTests {
     private TelecomCallManager callManager;
     
 
-    @BeforeTest
-    public void setUpTariffLibrary() {
+    @BeforeMethod
+    public void setUpMockComponents() {
     	this.customerSource = mock(CustomerDatasource.class);
         this.billGenerator = mock(BillGenerator.class);
         this.callManager = mock(TelecomCallManager.class);
