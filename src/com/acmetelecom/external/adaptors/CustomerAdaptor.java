@@ -1,6 +1,6 @@
-package com.acmetelecom.externaladaptors;
+package com.acmetelecom.external.adaptors;
 
-import com.acmetelecom.TelecomCustomer;
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
 import com.acmetelecom.customer.Customer;
 
 public class CustomerAdaptor implements TelecomCustomer {

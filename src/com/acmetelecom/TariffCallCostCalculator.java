@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.external.interfacecopies.TelecomTariff;
+import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
 import org.joda.time.DateTime;
 
 public class TariffCallCostCalculator implements CallCostCalculator {
@@ -19,7 +22,7 @@ public class TariffCallCostCalculator implements CallCostCalculator {
     }
 
     /* (non-Javadoc)
-	 * @see com.acmetelecom.CallCostCalculator2#calculateCallCosts(com.acmetelecom.TelecomCustomer, java.util.Collection)
+	 * @see com.acmetelecom.CallCostCalculator2#calculateCallCosts(com.acmetelecom.external.interfacecopies.TelecomCustomer, java.util.Collection)
 	 */
     @Override
     public List<LineItem> calculateCallCosts(TelecomCustomer customer, Collection<Call> calls) {

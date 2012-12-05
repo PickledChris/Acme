@@ -1,6 +1,6 @@
 package acme.telecom.fakes;
 
-import com.acmetelecom.TelecomTariff;
+import com.acmetelecom.external.interfacecopies.TelecomTariff;
 
 import java.math.BigDecimal;
 

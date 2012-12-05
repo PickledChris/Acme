@@ -1,5 +1,7 @@
 package com.acmetelecom;
 
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class BillGenerator implements TelecomBillGenerator {
     }
 
     /* (non-Javadoc)
-	 * @see com.acmetelecom.TelecomBillGenerator#send(com.acmetelecom.TelecomCustomer, java.util.List, java.lang.String)
+	 * @see com.acmetelecom.TelecomBillGenerator#send(com.acmetelecom.external.interfacecopies.TelecomCustomer, java.util.List, java.lang.String)
 	 */
     @Override
 	public void send(TelecomCustomer customer, List<LineItem> calls) {

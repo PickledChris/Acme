@@ -1,4 +1,4 @@
-package com.acmetelecom.externaladaptors;
+package com.acmetelecom.external.adaptors;
 
 import com.acmetelecom.customer.Customer;
 

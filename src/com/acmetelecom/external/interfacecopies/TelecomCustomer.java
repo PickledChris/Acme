@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.external.interfacecopies;
 
 public interface TelecomCustomer {
 

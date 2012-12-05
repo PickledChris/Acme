@@ -12,7 +12,7 @@ public class SystemUnderTest {
     public static final CallCostCalculator costCalculator = new TariffCallCostCalculator(tariffLibrary, peakPeriodManager);
     public static final TelecomBillGenerator billGenerator = new BillGenerator(simplePrinter);
     public static BillingSystem billingSystem;
-    public static TelecomCallManager callManager = new CallManager();
+    public static TelecomCallManager callManager = new SingleReceiverCallManager();
 
     public static void reset() {
         simplePrinter.clearOutput();

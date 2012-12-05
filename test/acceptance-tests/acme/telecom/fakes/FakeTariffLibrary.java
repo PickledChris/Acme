@@ -1,8 +1,8 @@
 package acme.telecom.fakes;
 
-import com.acmetelecom.TelecomCustomer;
-import com.acmetelecom.TelecomTariff;
-import com.acmetelecom.TelecomTariffLibrary;
+import com.acmetelecom.external.interfacecopies.TelecomTariff;
+import com.acmetelecom.external.interfacecopies.TelecomCustomer;
+import com.acmetelecom.external.interfacecopies.TelecomTariffLibrary;
 
 import java.util.HashMap;
 import java.util.Map;
