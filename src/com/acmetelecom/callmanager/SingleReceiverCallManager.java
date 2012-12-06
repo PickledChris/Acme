@@ -6,13 +6,13 @@ import java.util.List;
 
 import com.acmetelecom.billingsystem.Call;
 import com.acmetelecom.billingsystem.CallEvent;
-import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.billingsystem.CallManager;
 
 /**
  * User: Chris Bates
  * Date: 03/12/12
  */
-public class SingleReceiverCallManager implements TelecomCallManager {
+public class SingleReceiverCallManager implements CallManager {
 
     private final Collection<CallEvent> callLog;
 

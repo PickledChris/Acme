@@ -6,7 +6,7 @@ import java.util.Collection;
  * User: Chris Bates
  * Date: 03/12/12
  */
-public interface TelecomCallManager {
+public interface CallManager {
 
     /**
      * Register a call from caller to callee starting at the current system time.

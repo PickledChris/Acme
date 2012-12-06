@@ -6,12 +6,12 @@ import java.util.*;
 public class BillingSystem {
 
     private final CustomerDatasource customerSource;
-    private final TelecomCallManager callManager;
+    private final CallManager callManager;
     private final CallCostCalculator callCostCalculator;
     private final BillGenerator billGenerator;
 
     public BillingSystem(CustomerDatasource customerSource, CallCostCalculator callCostCalculator, 
-    		               TelecomCallManager callManager, BillGenerator billGenerator) {
+    		               CallManager callManager, BillGenerator billGenerator) {
         this.customerSource = customerSource;
         this.callManager = callManager;
         this.callCostCalculator = callCostCalculator;

@@ -17,7 +17,7 @@ import com.acmetelecom.billingsystem.Call;
 import com.acmetelecom.billingsystem.CallCostCalculator;
 import com.acmetelecom.billingsystem.CustomerDatasource;
 import com.acmetelecom.billingsystem.LineItem;
-import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.billingsystem.CallManager;
 import com.acmetelecom.billingsystem.TelecomCustomer;
 
 import org.joda.time.DateTime;
@@ -32,14 +32,14 @@ public class BillingSystemTest {
     private CallCostCalculator callCalculator;
     private CustomerDatasource customerSource;
     private BillGenerator billGenerator;
-    private TelecomCallManager callManager;
+    private CallManager callManager;
     
 
     @BeforeMethod
     public void setUpMockComponents() {
     	this.customerSource = mock(CustomerDatasource.class);
         this.billGenerator = mock(BillGenerator.class);
-        this.callManager = mock(TelecomCallManager.class);
+        this.callManager = mock(CallManager.class);
         this.callCalculator = mock(CallCostCalculator.class);
     }
    

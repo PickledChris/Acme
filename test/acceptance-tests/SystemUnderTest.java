@@ -8,7 +8,7 @@ import com.acmetelecom.billgenerator.TelecomBillGenerator;
 import com.acmetelecom.billingsystem.BillGenerator;
 import com.acmetelecom.billingsystem.BillingSystem;
 import com.acmetelecom.billingsystem.CallCostCalculator;
-import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.billingsystem.CallManager;
 import com.acmetelecom.callmanager.SingleReceiverCallManager;
 
 public class SystemUnderTest {
@@ -20,7 +20,7 @@ public class SystemUnderTest {
     public static final CallCostCalculator costCalculator = new TariffCallCostCalculator(tariffLibrary, peakPeriodManager);
     public static final BillGenerator billGenerator = new TelecomBillGenerator(simplePrinter);
     public static BillingSystem billingSystem;
-    public static TelecomCallManager callManager = new SingleReceiverCallManager();
+    public static CallManager callManager = new SingleReceiverCallManager();
 
     public static void reset() {
         simplePrinter.clearOutput();

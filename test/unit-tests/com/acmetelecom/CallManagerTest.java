@@ -3,7 +3,7 @@ package com.acmetelecom;
 import org.testng.annotations.Test;
 
 import com.acmetelecom.billingsystem.Call;
-import com.acmetelecom.billingsystem.TelecomCallManager;
+import com.acmetelecom.billingsystem.CallManager;
 import com.acmetelecom.callmanager.SingleReceiverCallManager;
 
 import java.util.Collection;
@@ -25,7 +25,7 @@ public class CallManagerTest {
     @Test
     public void singleCallTest() {
 
-        TelecomCallManager c = new SingleReceiverCallManager();
+        CallManager c = new SingleReceiverCallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -41,7 +41,7 @@ public class CallManagerTest {
     @Test
     public void twoCallTest() {
 
-        TelecomCallManager c = new SingleReceiverCallManager();
+        CallManager c = new SingleReceiverCallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -69,7 +69,7 @@ public class CallManagerTest {
     @Test
     public void twoCallersTest() {
 
-        TelecomCallManager c = new SingleReceiverCallManager();
+        CallManager c = new SingleReceiverCallManager();
 
         c.callInitiatedNow(callerNo1, calleeNo1);
         c.callCompletedNow(callerNo1, calleeNo1);
@@ -94,7 +94,7 @@ public class CallManagerTest {
     @Test
     public void fiveSecondCall() {
 
-        TelecomCallManager manager = new SingleReceiverCallManager();
+        CallManager manager = new SingleReceiverCallManager();
         manager.callInitiatedAt(callerNo1, calleeNo1, 1000);
         manager.callCompletedAt(callerNo1, calleeNo1, 6000);
 
@@ -109,7 +109,7 @@ public class CallManagerTest {
 
     @Test
     public void fiveMinuteCall() {
-        TelecomCallManager manager = new SingleReceiverCallManager();
+        CallManager manager = new SingleReceiverCallManager();
         manager.callInitiatedAt(callerNo1, calleeNo1, 0);
         manager.callCompletedAt(callerNo1, calleeNo1, 5 * 60 * 1000);
 
