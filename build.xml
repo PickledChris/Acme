@@ -1,0 +1,20 @@
+<project name="Acme" default="acceptance-tests">
+	
+	<path id="run.classpath.acceptance-tests">
+		<fileset dir="lib" />
+		<pathelement location="target/main-classes.jar" />
+		<pathelement location="target/test-classes.jar" />
+	</path>
+
+	<target name="acceptance-tests" depends="jars">
+		<java classname="fitlibrary.runner.FolderRunner" classpathref="run.classpath.acceptance-tests">
+			<arg value="fit" />
+			<arg value="reports" />
+		</java>
+	</target>
+	
+	<target name="jars">
+		<jar destfile="target/main-classes.jar" basedir="target/classes"/>
+		<jar destfile="target/test-classes.jar" basedir="target/test-classes"/>
+	</target>
+</project>
