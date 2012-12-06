@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.billcalculator;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -16,6 +16,7 @@ import com.acmetelecom.billingsystem.LineItem;
 import com.acmetelecom.billingsystem.TelecomCustomer;
 import com.acmetelecom.billingsystem.TelecomTariff;
 import com.acmetelecom.billingsystem.TelecomTariffLibrary;
+import com.acmetelecom.util.TelecomMockFactory;
 
 import org.joda.time.DateTime;
 import org.mockito.Mockito;

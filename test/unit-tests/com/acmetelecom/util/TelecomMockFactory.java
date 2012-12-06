@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.util;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -9,7 +9,7 @@ import org.joda.time.Seconds;
 import com.acmetelecom.billingsystem.Call;
 import com.acmetelecom.billingsystem.TelecomCustomer;
 
-class TelecomMockFactory {
+public class TelecomMockFactory {
 	
 	public static TelecomCustomer createFakeCustomer(String name, String phoneNumber, String tariff) {
     	TelecomCustomer customer = mock(TelecomCustomer.class);

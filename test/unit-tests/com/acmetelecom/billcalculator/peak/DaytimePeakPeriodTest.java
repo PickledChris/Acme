@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.billcalculator.peak;
 
 import static junit.framework.Assert.assertEquals;
 

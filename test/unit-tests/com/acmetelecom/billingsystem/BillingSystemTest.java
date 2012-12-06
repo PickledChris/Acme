@@ -1,7 +1,7 @@
-package com.acmetelecom;
+package com.acmetelecom.billingsystem;
 
-import static com.acmetelecom.TelecomMockFactory.createFakeCall;
-import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
+import static com.acmetelecom.util.TelecomMockFactory.createFakeCall;
+import static com.acmetelecom.util.TelecomMockFactory.createFakeCustomer;
 import static java.util.Arrays.asList;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;

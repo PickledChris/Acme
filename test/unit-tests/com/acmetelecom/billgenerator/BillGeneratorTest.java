@@ -1,4 +1,4 @@
-package com.acmetelecom;
+package com.acmetelecom.billgenerator;
 
 import com.acmetelecom.billgenerator.Printer;
 import com.acmetelecom.billgenerator.TelecomBillGenerator;
@@ -14,8 +14,8 @@ import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.acmetelecom.TelecomMockFactory.createFakeCall;
-import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
+import static com.acmetelecom.util.TelecomMockFactory.createFakeCall;
+import static com.acmetelecom.util.TelecomMockFactory.createFakeCustomer;
 import static org.mockito.Mockito.*;
 
 
