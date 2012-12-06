@@ -25,20 +25,24 @@
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>fitnesse-maven-plugin</artifactId>
-        <version>1.0-SNAPSHOT</version>
+    	<groupId>org.linuxstuff.maven</groupId>
+    	<artifactId>trinidad-maven-plugin</artifactId>
+    	<version>20120127</version>
         <configuration>
-          <!-- Fitnesse servers list -->
-          <fitnesses>
-            <fitnesse>
-                <hostName>myServer</hostName>
-                <port>80</port>
-                <pageName>mySuitePage</pageName>
-            </fitnesse>            
-          </fitnesses>
+        	<testRepositoryUri>${project.build.directory}/test/acceptance-tests/</testRepositoryUri>
+        	<breakBuildOnFailure>true</breakBuildOnFailure>
+        	<suites><suite>FitNesse.SuiteAcceptanceTests.SuiteSlimTests</suite></suites>
         </configuration>
-      </plugin>
+          <executions>
+          <execution>
+            <id>run-tests</id> <!-- this is used for inheritance merges -->
+            <phase>test</phase> <!-- append to the test phase. -->
+            <goals>
+              <goal>run-tests</goal> <!-- goals == mojos -->
+            </goals>
+          </execution>
+        </executions>          
+	    </plugin>
     </plugins>
   </build>
   <dependencies>
@@ -73,9 +77,9 @@
   		<version>20111025</version>
   	</dependency>
   	<dependency>
-  		<groupId>org.fitnesse</groupId>
-  		<artifactId>fitlibrary</artifactId>
-  		<version>20080812</version>
-  	</dependency>
+		<groupId>org.linuxstuff.maven</groupId>
+		<artifactId>trinidad-maven-plugin</artifactId>
+		<version>20120127</version>
+	</dependency>
   </dependencies>
 </project>
