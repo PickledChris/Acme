@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.acmetelecom.billgenerator.BillGenerator;
+import com.acmetelecom.billingsystem.BillGenerator;
 import com.acmetelecom.billingsystem.BillingSystem;
 import com.acmetelecom.billingsystem.Call;
 import com.acmetelecom.billingsystem.CallCostCalculator;

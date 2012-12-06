@@ -1,17 +1,17 @@
 package com.acmetelecom.billgenerator;
 
+import com.acmetelecom.billingsystem.BillGenerator;
 import com.acmetelecom.billingsystem.LineItem;
-import com.acmetelecom.billingsystem.TelecomBillGenerator;
 import com.acmetelecom.billingsystem.TelecomCustomer;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BillGenerator implements TelecomBillGenerator {
+public class TelecomBillGenerator implements BillGenerator {
 
     private final Printer printer;
 
-    public BillGenerator(Printer printer) {
+    public TelecomBillGenerator(Printer printer) {
         this.printer = printer;
     }
 

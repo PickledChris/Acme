@@ -1,9 +1,9 @@
 package com.acmetelecom;
 
-import com.acmetelecom.billgenerator.BillGenerator;
 import com.acmetelecom.billgenerator.Printer;
+import com.acmetelecom.billgenerator.TelecomBillGenerator;
+import com.acmetelecom.billingsystem.BillGenerator;
 import com.acmetelecom.billingsystem.LineItem;
-import com.acmetelecom.billingsystem.TelecomBillGenerator;
 import com.acmetelecom.billingsystem.TelecomCustomer;
 
 import org.joda.time.DateTime;
@@ -34,7 +34,7 @@ public class BillGeneratorTests {
 		String phoneNumber = "1";
 		String tariff = "normal";
 		TelecomCustomer cust = createFakeCustomer(name, phoneNumber, tariff);
-		TelecomBillGenerator billGenerator = new BillGenerator(printer);
+		BillGenerator billGenerator = new TelecomBillGenerator(printer);
 		DateTime startTime = new DateTime();
 		List<LineItem> lineItems = Arrays.asList(
 				new LineItem(createFakeCall(name, startTime, startTime.plusMinutes(5)), new BigDecimal("750")));
@@ -50,7 +50,7 @@ public class BillGeneratorTests {
 		String phoneNumber = "1";
 		String tariff = "normal";
 		TelecomCustomer cust = createFakeCustomer(name, phoneNumber, tariff);
-		TelecomBillGenerator billGenerator = new BillGenerator(printer);
+		BillGenerator billGenerator = new TelecomBillGenerator(printer);
 		DateTime startTime = new DateTime();
 		List<LineItem> lineItems = Arrays.asList(
 				new LineItem(createFakeCall(name, startTime, startTime.plusMinutes(5)), new BigDecimal("750")),

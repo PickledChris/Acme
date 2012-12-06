@@ -8,10 +8,10 @@ public class BillingSystem {
     private final CustomerDatasource customerSource;
     private final TelecomCallManager callManager;
     private final CallCostCalculator callCostCalculator;
-    private final TelecomBillGenerator billGenerator;
+    private final BillGenerator billGenerator;
 
     public BillingSystem(CustomerDatasource customerSource, CallCostCalculator callCostCalculator, 
-    		               TelecomCallManager callManager, TelecomBillGenerator billGenerator) {
+    		               TelecomCallManager callManager, BillGenerator billGenerator) {
         this.customerSource = customerSource;
         this.callManager = callManager;
         this.callCostCalculator = callCostCalculator;
