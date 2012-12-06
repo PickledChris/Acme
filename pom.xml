@@ -6,7 +6,7 @@
   <name>Acme telephone billing system</name>
   <build>
     <sourceDirectory>src</sourceDirectory>
-    <testSourceDirectory>test/unit-tests</testSourceDirectory>
+    <testSourceDirectory>test</testSourceDirectory>
     <resources>
       <resource>
         <directory>lib</directory>
@@ -25,27 +25,20 @@
         </configuration>
       </plugin>
       <plugin>
-    	<groupId>org.linuxstuff.maven</groupId>
-    	<artifactId>trinidad-maven-plugin</artifactId>
-    	<version>20120127</version>
-        <configuration>
-        	<testRepositoryUri>${project.build.directory}/test/acceptance-tests/</testRepositoryUri>
-        	<breakBuildOnFailure>true</breakBuildOnFailure>
-        	<suites><suite>FitNesse.SuiteAcceptanceTests.SuiteSlimTests</suite></suites>
-        </configuration>
-          <executions>
-          <execution>
-            <id>run-tests</id> <!-- this is used for inheritance merges -->
-            <phase>test</phase> <!-- append to the test phase. -->
-            <goals>
-              <goal>run-tests</goal> <!-- goals == mojos -->
-            </goals>
-          </execution>
-        </executions>          
-	    </plugin>
+    	<groupId>org.apache.maven.plugins</groupId>
+    	<artifactId>maven-surefire-plugin</artifactId>
+    	<version>2.8</version>  
+	  </plugin>
     </plugins>
   </build>
   <dependencies>
+  	<dependency>
+  		<groupId>com.acmetelecom</groupId>
+  		<artifactId>external</artifactId>
+  		<version>1.0</version>
+  		<scope>system</scope>
+  		<systemPath>${project.basedir}/lib/external.jar</systemPath>
+  	</dependency>
   	<dependency>
   		<groupId>joda-time</groupId>
   		<artifactId>joda-time</artifactId>
@@ -76,10 +69,5 @@
   		<artifactId>fitnesse</artifactId>
   		<version>20111025</version>
   	</dependency>
-  	<dependency>
-		<groupId>org.linuxstuff.maven</groupId>
-		<artifactId>trinidad-maven-plugin</artifactId>
-		<version>20120127</version>
-	</dependency>
   </dependencies>
 </project>

@@ -19,7 +19,7 @@ import static com.acmetelecom.TelecomMockFactory.createFakeCustomer;
 import static org.mockito.Mockito.*;
 
 
-public class BillGeneratorTests {
+public class BillGeneratorTest {
 	
 	private Printer printer;
 	

@@ -12,7 +12,7 @@ import com.acmetelecom.billcalculator.peak.PeakPeriodManager;
 /**
  * Tests for the PeakPeriodManager used by the system
  */
-public class DaytimePeakPeriodTests {
+public class DaytimePeakPeriodTest {
 
     private PeakPeriodDatasource peakPeriodManager = new PeakPeriodManager();
     private DateTime beginPeak = new LocalTime(7,0,0).toDateTimeToday();

@@ -26,7 +26,7 @@ import org.testng.annotations.Test;
  * User: Andy
  * Date: 29/11/12
  */
-public class CallCostTests {
+public class CallCostTest {
 
     TelecomTariff mockTariff;
     TelecomTariffLibrary mockTariffLibrary;

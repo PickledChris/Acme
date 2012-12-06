@@ -27,7 +27,7 @@ import org.testng.annotations.Test;
 /**
  * Set of tests for the Billing System. Uses Mocking to mock the billing data.
  */
-public class BillingSystemTests {
+public class BillingSystemTest {
 
     private CallCostCalculator callCalculator;
     private CustomerDatasource customerSource;

@@ -15,7 +15,7 @@ import static org.testng.Assert.*;
  * User: Chris Bates
  * Date: 03/12/12
  */
-public class CallManagerTests {
+public class CallManagerTest {
 
     private String callerNo1 = "00000";
     private String callerNo2 = "00001";
